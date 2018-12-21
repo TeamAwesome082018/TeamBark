@@ -1,5 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
-    const Posts = sequelize.define("Posts", {
+    const Posts = sequelize.define("posts", {
         id: {
             autoIncrement: true,
             primaryKey: true,
@@ -28,3 +28,4 @@ module.exports = function (sequelize, DataTypes) {
     // };
     return Posts;
 };
+//to send something
