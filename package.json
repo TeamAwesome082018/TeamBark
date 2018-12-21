@@ -11,19 +11,41 @@
   },
   "license": "ISC",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.6",
     "mysql2": "^1.5.3",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "sequelize": "^4.38.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
-    "eslint": "^4.19.1",
+    "eslint-config-google": "^0.11.0",
     "eslint-config-prettier": "^2.9.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
     "eslint-plugin-prettier": "^2.6.2",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
     "mocha": "^5.2.0",
     "prettier": "^1.13.7"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TeamAwesome082018/teamAwesome.git"
+  },
+  "keywords": [],
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/TeamAwesome082018/teamAwesome/issues"
+  },
+  "homepage": "https://github.com/TeamAwesome082018/teamAwesome#readme"
 }
