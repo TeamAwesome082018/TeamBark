@@ -1,5 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
-    const Dog = sequelize.define("Dog", {
+    const Dog = sequelize.define("dog", {
         id: {
             autoIncrement: true,
             primaryKey: true,
