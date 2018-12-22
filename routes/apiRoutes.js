@@ -3,17 +3,17 @@ var db = require("../models");
 module.exports = function (app) {
   // Get all our database data for all tables
   app.get("/api/user", function (req, res) {
-    db.user.findAll({}).then(function (dbExamples) {
+    db.User.findAll({}).then(function (dbExamples) {
       res.json(dbExamples);
     });
   });
   app.get("/api/dog", function (req, res) {
-    db.dog.findAll({}).then(function (dbExamples) {
+    db.Dog.findAll({}).then(function (dbExamples) {
       res.json(dbExamples);
     });
   });
   app.get("/api/posts", function (req, res) {
-    db.posts.findAll({}).then(function (dbExamples) {
+    db.Posts.findAll({}).then(function (dbExamples) {
       res.json(dbExamples);
     });
   });
@@ -26,7 +26,7 @@ module.exports = function (app) {
   });
 
   app.post("/api/dog", function (req, res) {
-    db.dog.create(req.body).then(function (dbExample) {
+    db.Dog.create(req.body).then(function (dbExample) {
       res.json(dbExample);
     });
   });
