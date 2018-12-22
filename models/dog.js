@@ -1,5 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
-    const Dog = sequelize.define("dog", {
+    const Dog = sequelize.define("Dog", {
         id: {
             autoIncrement: true,
             primaryKey: true,
@@ -15,12 +15,14 @@ module.exports = function (sequelize, DataTypes) {
         }
     });
 
-    // Dog.associate = function (models) {
-    //     Dog.belongsTo(models.User, {
-    //         foreignKey: {
-    //             allowNull: false
-    //         }
-    //     });
-    // };
+    Dog.associate = function (models) {
+        // We're saying that a Post should belong to an Author
+        // A Post can't be created without an Author due to the foreign key constraint
+        Dog.belongsTo(models.User, {
+            foreignKey: {
+                allowNull: false
+            }
+        });
+    };
     return Dog;
 };
