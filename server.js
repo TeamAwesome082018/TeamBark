@@ -32,7 +32,7 @@ require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app, passport);
 
 //load passport strategies
-require('./passport/passport.js')(passport, db.user);
+require('./passport/passport.js')(passport, db.User);
 
 var syncOptions = { force: false };
 // If running a test, set syncOptions.force to true
