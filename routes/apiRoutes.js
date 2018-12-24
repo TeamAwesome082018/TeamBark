@@ -1,4 +1,4 @@
-var db = require("../models");
+const db = require("../models");
 
 module.exports = function (app) {
   // Get all our database data for all tables
@@ -7,11 +7,14 @@ module.exports = function (app) {
       res.json(dbExamples);
     });
   });
-  app.get("/api/dog", function (req, res) {
+
+  //Lists all the dogs to the screen as json data
+  app.get("/api/dog", isLoggedIn, function (req, res) {
     db.Dog.findAll({}).then(function (dbExamples) {
       res.json(dbExamples);
     });
   });
+
   app.get("/api/posts", function (req, res) {
     db.Posts.findAll({}).then(function (dbExamples) {
       res.json(dbExamples);
@@ -25,9 +28,15 @@ module.exports = function (app) {
     });
   });
 
-  app.post("/api/dog", function (req, res) {
-    db.Dog.create(req.body).then(function (dbExample) {
-      res.json(dbExample);
+  //Create a new dog
+  //Only availiable when logged in
+  app.post("/api/dog", isLoggedIn, function (req, res) {
+    //Get the new dog that the user inputted
+    const newDog = req.body;
+    //Add the user's ID to the new dog object, so we can assign the foreign key to it
+    newDog.UserId = req.user.id;
+    db.Dog.create(req.body).then(function (dbDog) {
+      res.json(dbDog);
     });
   });
 
@@ -43,4 +52,13 @@ module.exports = function (app) {
       res.json(dbExample);
     });
   });
+
+  //This function checks if the user is logged in
+  //Is used when the user is trying to access any part of the site
+  function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated())
+      return next();
+    res.redirect('/signin');
+  };
+
 };

@@ -1,12 +1,12 @@
 require("dotenv").config();
-var express = require("express");
-var exphbs = require("express-handlebars");
-var passport = require('passport');
-var session = require('express-session');
-var db = require("./models");
+const express = require("express");
+const exphbs = require("express-handlebars");
+const passport = require('passport');
+const session = require('express-session');
+const db = require("./models");
 
-var app = express();
-var PORT = process.env.PORT || 3000;
+const app = express();
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.urlencoded({ extended: false }));
@@ -19,22 +19,18 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
 // Handlebars
-app.engine(
-  "handlebars",
-  exphbs({
-    defaultLayout: "main"
-  })
-);
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Routes
 require("./routes/apiRoutes")(app);
-require("./routes/htmlRoutes")(app, passport);
+require("./routes/htmlRoutes")(app);
+require("./routes/passportRoutes")(app, passport);
 
 //load passport strategies
-require('./passport/passport.js')(passport, db.user);
+require('./passport/passport.js')(passport, db.User);
 
-var syncOptions = { force: false };
+const syncOptions = { force: false };
 // If running a test, set syncOptions.force to true
 // clearing the `testdb`
 if (process.env.NODE_ENV === "test") {

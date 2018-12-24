@@ -1,6 +1,6 @@
-var db = require("../models");
+const db = require("../models");
 
-module.exports = function (app, passport) {
+module.exports = function (app) {
   // Load index page
   app.get("/", isLoggedIn, function (req, res) {
     db.Example.findAll({}).then(function (dbExamples) {
@@ -9,6 +9,10 @@ module.exports = function (app, passport) {
         examples: dbExamples
       });
     });
+  });
+
+  app.get("/createdog", isLoggedIn, function (req, res) {
+    res.render("createDog");
   });
 
   // Load example page and pass in an example by id
@@ -23,30 +27,20 @@ module.exports = function (app, passport) {
   });
 
   app.get("/signin", function (req, res) {
-    res.render("signin");
+    res.render("signIn");
   });
 
   app.get("/signup", function (req, res) {
-    res.render("signup");
+    res.render("signUp");
   });
-
-  app.post('/signin', passport.authenticate('local-signin', {
-    successRedirect: '/',
-    failureRedirect: '/signin'
-  }
-  ));
-
-  app.post('/signup', passport.authenticate('local-signup', {
-    successRedirect: '/',
-    failureRedirect: '/signup'
-  }
-  ));
 
   // Render 404 page for any unmatched routes
   app.get("*", function (req, res) {
     res.render("404");
   });
 
+  //This function checks if the user is logged in
+  //Is used when the user is trying to access any part of the site
   function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
       return next();

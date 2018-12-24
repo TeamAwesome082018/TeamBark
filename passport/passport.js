@@ -8,6 +8,7 @@ module.exports = function (passport, user) {
 
     //serialize
     passport.serializeUser(function (user, done) {
+        console.log(user.id);
         done(null, user.id);
     });
 
@@ -49,17 +50,23 @@ module.exports = function (passport, user) {
                         email: email,
                         password: userPassword,
                         firstname: req.body.firstname,
-                        lastname: req.body.lastname
+                        lastname: req.body.lastname,
+                        address: req.body.address,
+                        phone_number: req.body.phone_number
                     };
 
-                    User.create(data).then(function (newUser, created) {
-                        if (!newUser) {
-                            return done(null, false);
-                        }
-                        if (newUser) {
-                            return done(null, newUser);
-                        }
-                    });
+                    User.create(data)
+                        //TODO make this catch pop up a modal or something to show an error occured
+                        //Should be doing input validation before it gets to this point    
+                        .catch()
+                        .then(function (newUser, created) {
+                            if (!newUser) {
+                                return done(null, false);
+                            }
+                            if (newUser) {
+                                return done(null, newUser);
+                            }
+                        });
                 }
             });
         }
