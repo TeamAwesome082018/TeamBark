@@ -1,14 +1,22 @@
 //This file is to get the new dog working with the Sequelize / Cloudinary and to keep it seperate from the rest of the app
 $(`.fileUpload`).on(`change`, (event) => {
-    //TODO Input validation to ensure it's a jpeg
     const uploadedFile = event.target.files[0];
     console.log(uploadedFile)
 });
 
+//TODO Look into Multer for sending the image from the front end to the server
 $(`.newDogSubmit`).on(`click`, () => {
+    const uploadedPhoto = newDog: $(`.fileUpload`)[0].files[0];
+    console.log(uploadedPhoto)
+    //Currently it's this line that's breaking
+    //I don't think it likes this being sent as a post request, it's giving me this error:
+    // Uncaught TypeError: Illegal invocation
+    $.post(`/api/newDogPhoto`, uploadedPhoto).then((cloudinaryURL) => { console.log(cloudinaryURL) })
     const newDog = {
         dog_name: $(`.inputDogName`).val(),
         breed: $(`.inputBreed`).val(),
+        photo_url: "TODO"
     };
-    $.post(`/api/dog`, newDog).then((thing) => { console.log(thing) }); //The then needs to have a redirect to the user info / dog page
+    console.log(newDog)
+    // $.post(`/api/dog`, newDog).then((thing) => { console.log(thing) }); //The then needs to have a redirect to the user info / dog page
 });

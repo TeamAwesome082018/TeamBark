@@ -12,6 +12,10 @@ module.exports = function (sequelize, DataTypes) {
         breed: {
             type: DataTypes.STRING,
             notEmpty: true
+        },
+        photo_url: {
+            type: DataTypes.STRING,
+            notEmpty: true
         }
     });
 
