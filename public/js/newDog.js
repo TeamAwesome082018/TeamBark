@@ -4,7 +4,8 @@ $(`.fileUpload`).on(`change`, (event) => {
     console.log(uploadedFile)
 });
 
-//TODO Look into Multer for sending the image from the front end to the server
+//TODO Change the handlebars into a form and parse it using the URL below
+//http://www.hacksparrow.com/handle-file-uploads-in-express-node-js.html
 $(`.newDogSubmit`).on(`click`, () => {
     const uploadedPhoto = $(`.fileUpload`)[0].files[0];
     //Needs to be const uploadedPhoto = $(`.fileUpload`)[0].files[0];

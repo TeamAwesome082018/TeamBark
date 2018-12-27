@@ -11,7 +11,7 @@ module.exports = function (app) {
     });
   });
 
-  app.get("/createdog", isLoggedIn, function (req, res) {
+  app.get("/createdog", function (req, res) {
     res.render("createDog");
   });
 
