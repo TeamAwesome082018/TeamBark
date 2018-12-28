@@ -1,18 +1,14 @@
-<label for="dogName">Dog Name</label>
-<input class="inputDogName" type="text" />
-<label for="inputBreed">Breed</label>
-<input class="inputBreed" type="text" />
-<button class="btn btn-success newDogSubmit" type="submit">Submit Dog</button>
-
-{{!-- This is dummy template working to fill this out now --}}
-<div class="imageUploader">
-    <img class="imagePreview" src="/images/dogShadow.png">
-    <br>
-    <input class="fileUpload" type="file">
+<form id="newDog" method="post" action="/api/dog">
+    <label for="dog_name">Dog Name</label>
+    <input name="dog_name" class="dogName" type="text" />
+    <label for="inputBreed">Breed</label>
+    <input name="breed" class="breed" type="text" />
+    <input class="fileUpload" type="file" name="dogPicture">
     Select an Image
-</div>
+    <input class="btn btn-success newDogSubmit" type="submit" value="Submit Dog" />
+</form>
 
-<script src="/js/newDog.js"></script>
+{{!-- <script src="/js/newDog.js"></script> --}}
 {{!-- These are cloudinary's recommendations --}}
 <script type="text/javascript" src="/js/jquery.ui.widget.js"></script>
 <script type="text/javascript" src="/js/jquery.iframe-transport.js"></script>

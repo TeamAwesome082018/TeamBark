@@ -11,7 +11,8 @@ module.exports = function (app) {
     });
   });
 
-  app.get("/createdog", function (req, res) {
+  //TODO add back isLoggedIn
+  app.get("/createdog", isLoggedIn, function (req, res) {
     res.render("createDog");
   });
 

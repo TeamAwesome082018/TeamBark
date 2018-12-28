@@ -1,4 +1,5 @@
 const db = require("../models");
+const cloudinary = require(`../cloudinary/cloudinary`);
 
 module.exports = function (app) {
   // Get all our database data for all tables
@@ -31,17 +32,16 @@ module.exports = function (app) {
   //Create a new dog
   //Only availiable when logged in
   app.post("/api/dog", isLoggedIn, function (req, res) {
+    // console.log(req.body.dogPicture)
     //Get the new dog that the user inputted
     const newDog = req.body;
+    console.log(req.body)
     //Add the user's ID to the new dog object, so we can assign the foreign key to it
     newDog.UserId = req.user.id;
     db.Dog.create(req.body).then(function (dbDog) {
       res.json(dbDog);
     });
-  });
 
-  app.get("/signin", function (req, res) {
-    res.render("signin");
   });
 
   // Delete an example by id
