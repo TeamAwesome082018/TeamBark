@@ -11,7 +11,6 @@ module.exports = function (app) {
     });
   });
 
-  //TODO add back isLoggedIn
   app.get("/createdog", isLoggedIn, function (req, res) {
     res.render("createDog");
   });
@@ -33,6 +32,10 @@ module.exports = function (app) {
 
   app.get("/signup", function (req, res) {
     res.render("signUp");
+  });
+
+  app.get("/user/:userID", function (req, res) {
+
   });
 
   // Render 404 page for any unmatched routes

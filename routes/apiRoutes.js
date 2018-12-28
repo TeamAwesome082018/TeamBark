@@ -1,6 +1,10 @@
 const db = require("../models");
 const cloudinary = require(`../cloudinary/cloudinary`);
 
+//Multer is to handle the image of the dog coming in with the post route
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' })
+
 module.exports = function (app) {
   // Get all our database data for all tables
   app.get("/api/user", function (req, res) {
@@ -31,17 +35,27 @@ module.exports = function (app) {
 
   //Create a new dog
   //Only availiable when logged in
-  app.post("/api/dog", isLoggedIn, function (req, res) {
-    // console.log(req.body.dogPicture)
-    //Get the new dog that the user inputted
+  app.post("/api/createdog", upload.single("dog_photo"), isLoggedIn, async function (req, res) {
+    //First assign the inputted values of the new dog to an object
     const newDog = req.body;
-    console.log(req.body)
-    //Add the user's ID to the new dog object, so we can assign the foreign key to it
+    //Add the user's ID to the new dog object, so we can assign the foreign key in the dogs table
     newDog.UserId = req.user.id;
-    db.Dog.create(req.body).then(function (dbDog) {
-      res.json(dbDog);
+    newDog.photo_url = "";
+    //Upload the image the user selected to cloudinary
+    await cloudinary.uploader.upload(req.file.path, function (error, result) {
+      if (error) {
+        throw error
+      }
+      //Get the URL from cloudinary and assign it to the user's dog they inputted
+      newDog.photo_url = result.secure_url;
+      newDog.cloudinary_public_id = result.public_id;
+      return newDog;
     });
 
+    //Write the new dog that was just inputted into the database
+    await db.Dog.create(newDog).then(function (dbDog) {
+      res.redirect(`/user/:${dbDog.UserId}`)
+    });
   });
 
   // Delete an example by id
