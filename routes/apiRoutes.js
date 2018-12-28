@@ -49,7 +49,6 @@ module.exports = function (app) {
       //Get the URL from cloudinary and assign it to the user's dog they inputted
       newDog.photo_url = result.secure_url;
       newDog.cloudinary_public_id = result.public_id;
-      return newDog;
     });
 
     //Write the new dog that was just inputted into the database
