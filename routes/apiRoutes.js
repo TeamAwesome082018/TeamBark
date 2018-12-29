@@ -2,21 +2,22 @@ const db = require("../models");
 const cloudinary = require(`../cloudinary/cloudinary`);
 
 //Multer is to handle the image of the dog coming in with the post route
+//Is used with the api/createdog route
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' })
 
 module.exports = function (app) {
   // Get all our database data for all tables
   app.get("/api/user", function (req, res) {
-    db.User.findAll({}).then(function (dbExamples) {
-      res.json(dbExamples);
+    db.User.findAll({}).then(function (users) {
+      res.json(users);
     });
   });
 
   //Lists all the dogs to the screen as json data
   app.get("/api/dog", isLoggedIn, function (req, res) {
-    db.Dog.findAll({}).then(function (dbExamples) {
-      res.json(dbExamples);
+    db.Dog.findAll({}).then(function (dogs) {
+      res.json(dogs);
     });
   });
 
@@ -53,7 +54,7 @@ module.exports = function (app) {
 
     //Write the new dog that was just inputted into the database
     await db.Dog.create(newDog).then(function (dbDog) {
-      res.redirect(`/user/:${dbDog.UserId}`)
+      res.redirect(`/user/${dbDog.UserId}`)
     });
   });
 

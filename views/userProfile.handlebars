@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row">
+        <div class="col-8 offset-2">
+            <h5>User Profile:</h5>
+            <p>
+                <strong>ID</strong>: {{userProfile.id}}
+            </p>
+            <p>
+                <strong>Name</strong>: {{userProfile.userName}}
+            </p>
+            {{#each userDogsArray}}
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <p>
+                            <strong>Dog:</strong> {{this.name}}
+                        </p>
+                        <img src="{{cloudinaryURL this.picture}}" alt="Dog's Picture" width="150" height="150">
+                        <a href="/">← Back To Home</a>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.min.js"></script>
