@@ -1,4 +1,5 @@
 const db = require("../models");
+const userDogs = require(`../dogHandler/userDogs`);
 
 module.exports = function (app) {
   // Load index page
@@ -36,30 +37,16 @@ module.exports = function (app) {
 
   //Displays the user information and the dogs which they have registered to the site
   app.get("/user/:userID", async function (req, res) {
-    const userProfile = {};
-    const userDogsArray = [];
-    userProfile.id = req.params.userID;
-    //First get the username from the user table
-    await db.User.findOne({ where: { id: req.params.userID } }).then(function (userInfo) {
-      userProfile.userName = `${userInfo.firstname} ${userInfo.lastname}`
-    });
 
-    //Then query the dogs database to get all the dogs that belong to that user
-    await db.Dog.findAll({ where: { UserId: req.params.userID } }).then(function (dogs) {
-      //Gets all the dogs and adds it to the userProfile object to then display to the user
-      dogs.forEach(function (dog, index) {
-        const userDog = {};
-        userDog.name = dog.dog_name;
-        userDog.picture = dog.photo_url;
-        userDogsArray.push(userDog);
-      });
-    });
+    //Goes to the dogHandler object and grabs all the dogs for the user
+    //This is used to keep the routes page clean
+    const user = await userDogs.getUserDogs(req.params.userID);
 
     //Then sending the userProfile object and the userDogsArray to handlebars for processing
     res.render("userProfile", {
-      userProfile,
-      userDogsArray
-    })
+      userProfile: user.userProfile,
+      userDogsArray: user.userDogsArray
+    });
   });
 
   // Render 404 page for any unmatched routes
