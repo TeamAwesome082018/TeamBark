@@ -1,0 +1,35 @@
+{{!-- Update Picture, Update Name --}}
+<div class="container">
+    <div class="row">
+        <div class="card mt-4 float-left">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <p>
+                            <strong>Dog:</strong> {{dog.dog_name}}
+                            <br>
+                            {{cloudinaryIMG dog.photo_url width=150 height=150}}
+                        </p>
+                    </div>
+                    <div class="col-6">
+                        <p class="mt-5">
+                            <form id="updateDog" method="post" action="/api/updatedog" enctype="multipart/form-data">
+                                {{!-- Below must be hidden as it passes in what dog we are updating and we don't want users to change it --}}
+                                <input name="id" type="hidden" value="{{dog.id}}">
+                                <label for="dog_name">Dog Name</label>
+                                <input name="dog_name" class="dogName" type="text" />
+                                <br><br>
+                                Select an Image
+                                <input class="fileUpload" type="file" name="dog_photo">
+                                <br><br>
+                                <input class="btn btn-success newDogSubmit" type="submit" value="Update Dog" />
+                            </form>
+                            <br>
+                            <a href="/">← Back To Home</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

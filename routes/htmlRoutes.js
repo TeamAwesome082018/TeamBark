@@ -16,6 +16,12 @@ module.exports = function (app) {
     res.render("createDog");
   });
 
+  app.get("/dog/:dogID", function (req, res) {
+    db.Dog.findOne({ where: { id: req.params.dogID } }).then(function (dog) {
+      res.render("updateDog", { dog });
+    });
+  })
+
   // Load example page and pass in an example by id
   app.get("/example/:id", function (req, res) {
     db.Example.findOne({ where: { id: req.params.id } }).then(function (

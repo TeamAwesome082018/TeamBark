@@ -41,6 +41,22 @@ module.exports = function (app) {
     const userID = await userDogs.createDog(req.body, req.file.path, req.user.id)
 
     //This then takes them to the page which displays all of their dogs
+    res.redirect(`/user/${userID}`)
+  });
+
+  //This has to be a post request because a form is the way I've found to send an image
+  app.post("/api/updatedog", upload.single("dog_photo"), async function (req, res) {
+    //Checks if the user passed in a file and builds the request accordingly
+    //TODO make this a string so I can have it redirect to the user page
+    let userID = {}
+
+    //If the user uploaded a file then send the file path, otherwise don't
+    if (req.file) {
+      userID = await userDogs.updateDog(req.body, req.file.path);
+    } else {
+      userID = await userDogs.updateDog(req.body);
+    };
+
     await res.redirect(`/user/${userID}`)
   });
 

@@ -12,6 +12,7 @@ module.exports = {
                 throw error
             }
             //Get the image name and type from cloudinary and assign it to the user's dog they inputted
+            //The photo_url is what cloudinary assigned as the file name along with the type (jpeg or png)
             newDog.photo_url = result.secure_url.split(`/`)[7];
             newDog.cloudinary_public_id = result.public_id;
         });
@@ -24,6 +25,7 @@ module.exports = {
         return userID
     },
     getUserDogs: async function (userID) {
+        //Build the user object so we can move it to handlebars to display
         const user = {};
         user.userProfile = {};
         user.userDogsArray = [];
@@ -36,13 +38,52 @@ module.exports = {
         //Then query the dogs database to get all the dogs that belong to that user
         await db.Dog.findAll({ where: { UserId: userID } }).then(function (dogs) {
             //Gets all the dogs and adds it to the userProfile object to then display to the user
-            dogs.forEach(function (dog, index) {
+            dogs.forEach(function (dog) {
                 const userDog = {};
                 userDog.name = dog.dog_name;
                 userDog.picture = dog.photo_url;
+                userDog.id = dog.id;
                 user.userDogsArray.push(userDog);
             });
         });
         return user;
+    },
+    updateDog: async function (updatedDog, dogPhotoPath) {
+        let userID = "";
+        //When querying the dog database pull the userID
+        await db.Dog.findOne({ where: { id: updatedDog.id } }).then(function (dog) {
+            userID = dog.UserId;
+        });
+
+        //If they inputted a new name for the dog then this updates it
+        if (updatedDog.dog_name !== "") {
+            await db.Dog.update({ dog_name: updatedDog.dog_name }, { where: { id: updatedDog.id } })
+        };
+        // updatedDog.id updatedDog.dog_name
+        if (dogPhotoPath) {
+            let photoURL = "";
+            const newDog = {};
+            //This is to grab the photo values from the dog object to manipulate it with cloudinary
+            await db.Dog.findOne({ where: { id: updatedDog.id } }).then(function (dog) {
+                photoURL = dog.photo_url;
+            });
+            await cloudinary.uploader.destroy(photoURL, function (error, result) {
+                if (error) {
+                    throw error
+                }
+                console.log("Deleted")
+            });
+            await cloudinary.uploader.upload(dogPhotoPath, function (error, result) {
+                if (error) {
+                    throw error
+                }
+                //Get the image name and type from cloudinary and assign it to the user's dog they inputted
+                //The photo_url is what cloudinary assigned as the file name along with the type (jpeg or png)
+                newDog.photo_url = result.secure_url.split(`/`)[7];
+                newDog.cloudinary_public_id = result.public_id;
+            });
+            await db.Dog.update({ photo_url: newDog.photo_url, cloudinary_public_id: newDog.cloudinary_public_id }, { where: { id: updatedDog.id } })
+        }
+        return userID
     }
 };
