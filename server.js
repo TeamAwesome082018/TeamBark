@@ -1,9 +1,11 @@
 require("dotenv").config();
 const express = require("express");
 const exphbs = require("express-handlebars");
+const handlebars = require("handlebars")
 const passport = require('passport');
 const session = require('express-session');
 const db = require("./models");
+const cloudinary = require(`./cloudinary/cloudinary`);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,6 +19,12 @@ app.use(express.static("public"));
 app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
+
+//Handlebar helper for cloudinary
+//This takes the images that the user inputted and displays them to the screen
+handlebars.registerHelper("cloudinaryIMG", function (url, params) {
+  return new handlebars.SafeString(cloudinary.image(url, { width: params.hash.width, height: params.hash.height, crop: "fill" }));
+});
 
 // Handlebars
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));

@@ -39,6 +39,7 @@ module.exports = function (app) {
   app.post("/api/createdog", upload.single("dog_photo"), isLoggedIn, async function (req, res) {
     //First assign the inputted values of the new dog to an object
     const newDog = req.body;
+    res.json(req.file)
     //Add the user's ID to the new dog object, so we can assign the foreign key in the dogs table
     newDog.UserId = req.user.id;
     newDog.photo_url = "";
@@ -47,12 +48,12 @@ module.exports = function (app) {
       if (error) {
         throw error
       }
-      //Get the URL from cloudinary and assign it to the user's dog they inputted
-      newDog.photo_url = result.secure_url;
+      //Get the image name and type from cloudinary and assign it to the user's dog they inputted
+      newDog.photo_url = result.secure_url.split(`/`)[7];
       newDog.cloudinary_public_id = result.public_id;
     });
 
-    //Write the new dog that was just inputted into the database
+    // Write the new dog that was just inputted into the database
     await db.Dog.create(newDog).then(function (dbDog) {
       res.redirect(`/user/${dbDog.UserId}`)
     });
