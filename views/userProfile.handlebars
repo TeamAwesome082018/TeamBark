@@ -8,19 +8,19 @@
             <p>
                 <strong>Name</strong>: {{userProfile.userName}}
             </p>
-            {{#each userDogsArray}}
-                <div class="card mt-4">
-                    <div class="card-body">
-                        <p>
-                            <strong>Dog:</strong> {{this.name}}
-                        </p>
-                        {{cloudinaryIMG this.picture width=150 height=150}}
-                        <a href="/">← Back To Home</a>
+            <div class="row">
+                {{#each userDogsArray}}
+                    <div class="card mt-4 col-6 float-left">
+                        <div class="card-body">
+                            <p>
+                                <strong>Dog:</strong> {{this.name}}
+                            </p>
+                            {{cloudinaryIMG this.picture width=150 height=150}}
+                            <a href="/">← Back To Home</a>
+                        </div>
                     </div>
-                </div>
-            {{/each}}
+                {{/each}}
+            </div>
         </div>
     </div>
 </div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.min.js"></script>
