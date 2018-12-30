@@ -12,11 +12,21 @@
                 {{#each userDogsArray}}
                     <div class="card mt-4 col-6 float-left">
                         <div class="card-body">
-                            <p>
-                                <strong>Dog:</strong> {{this.name}}
-                            </p>
-                            {{cloudinaryIMG this.picture width=150 height=150}}
-                            <a href="/">← Back To Home</a>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p>
+                                        <strong>Dog:</strong> {{this.name}}
+                                    </p>
+                                    {{cloudinaryIMG this.picture width=150 height=150}}
+                                </div>
+                                <div class="col-6">
+                                    <p class="mt-5">
+                                        <a href="/updateDog">Update the Doggo</a>
+                                        <br>
+                                        <a href="/">← Back To Home</a>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 {{/each}}

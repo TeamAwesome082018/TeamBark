@@ -39,7 +39,6 @@ module.exports = function (app) {
   app.post("/api/createdog", upload.single("dog_photo"), isLoggedIn, async function (req, res) {
     //First assign the inputted values of the new dog to an object
     const newDog = req.body;
-    res.json(req.file)
     //Add the user's ID to the new dog object, so we can assign the foreign key in the dogs table
     newDog.UserId = req.user.id;
     newDog.photo_url = "";
