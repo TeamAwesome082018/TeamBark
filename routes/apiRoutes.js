@@ -46,9 +46,7 @@ module.exports = function (app) {
 
   //This has to be a post request because a form is the way I've found to send an image
   app.post("/api/updatedog", upload.single("dog_photo"), async function (req, res) {
-    //Checks if the user passed in a file and builds the request accordingly
-    //TODO make this a string so I can have it redirect to the user page
-    let userID = {}
+    let userID = "";
 
     //If the user uploaded a file then send the file path, otherwise don't
     if (req.file) {
@@ -58,6 +56,13 @@ module.exports = function (app) {
     };
 
     await res.redirect(`/user/${userID}`)
+  });
+
+  app.delete("/api/deletedog", async function (req, res) {
+    //Goes to the dog handler and deletes the dog from the database as well as the cloudinary
+    const userID = await userDogs.deleteDog(req.body.id);
+
+    res.end(JSON.stringify(userID));
   });
 
   // Delete an example by id

@@ -85,5 +85,23 @@ module.exports = {
             await db.Dog.update({ photo_url: newDog.photo_url, cloudinary_public_id: newDog.cloudinary_public_id }, { where: { id: updatedDog.id } })
         }
         return userID
+    }, deleteDog: async function (dogID) {
+        let userID = "";
+        let dogCloudinaryURL = "";
+        await db.Dog.findOne({ where: { id: dogID } }).then(function (dog) {
+            userID = dog.UserId;
+            dogCloudinaryURL = dog.cloudinary_public_id;
+        });
+
+        await cloudinary.uploader.destroy(dogCloudinaryURL, function (error, result) {
+            if (error) {
+                throw error
+            }
+            console.log("Deleted")
+        });
+
+        await db.Dog.destroy({ where: { id: dogID } });
+
+        return userID;
     }
 };
