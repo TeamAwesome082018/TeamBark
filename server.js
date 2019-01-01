@@ -6,6 +6,7 @@ const passport = require('passport');
 const session = require('express-session');
 const db = require("./models");
 const cloudinary = require(`./cloudinary/cloudinary`);
+const flash = require("connect-flash")
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // For Passport
+app.use(flash())
 app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions

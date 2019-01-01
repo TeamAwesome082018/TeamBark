@@ -1,3 +1,7 @@
+{{#if message}}
+    <div class="alert">{{message}}</div>
+{{/if}}
+
 <form id="signup" name="signup" method="post" action="/signup">
     <label for="email">Email Address</label>
     <input class="text" name="email" type="email" />

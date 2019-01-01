@@ -34,11 +34,11 @@ module.exports = function (app) {
   });
 
   app.get("/signin", function (req, res) {
-    res.render("signIn");
+    res.render("signIn", { message: req.flash("error") });
   });
 
   app.get("/signup", function (req, res) {
-    res.render("signUp");
+    res.render("signUp", { message: req.flash("error") });
   });
 
   //Displays the user information and the dogs which they have registered to the site

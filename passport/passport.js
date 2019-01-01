@@ -8,7 +8,6 @@ module.exports = function (passport, user) {
 
     //serialize
     passport.serializeUser(function (user, done) {
-        console.log(user.id);
         done(null, user.id);
     });
 
@@ -30,6 +29,7 @@ module.exports = function (passport, user) {
             passwordField: 'password',
             passReqToCallback: true // allows us to pass back the entire request to the callback
         }, function (req, email, password, done) {
+            //TODO possible invalid input checking here??
             var generateHash = function (password) {
                 return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
             };
@@ -56,8 +56,6 @@ module.exports = function (passport, user) {
                     };
 
                     User.create(data)
-                        //TODO make this catch pop up a modal or something to show an error occured
-                        //Should be doing input validation before it gets to this point    
                         .catch()
                         .then(function (newUser, created) {
                             if (!newUser) {
