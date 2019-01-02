@@ -98,7 +98,12 @@ module.exports = function (passport, user) {
                     };
 
                     User.create(data)
-                        .catch()
+                        .catch(function (err) {
+                            console.log("Error:", err);
+                            return done(null, false, {
+                                message: 'Something went wrong with your Sign Up'
+                            });
+                        })
                         .then(function (newUser, created) {
                             if (!newUser) {
                                 return done(null, false);
