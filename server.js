@@ -40,7 +40,7 @@ require("./routes/passportRoutes")(app, passport);
 //load passport strategies
 require('./passport/passport.js')(passport, db.User);
 
-const syncOptions = { force: false };
+const syncOptions = { force: true };
 // If running a test, set syncOptions.force to true
 // clearing the `testdb`
 if (process.env.NODE_ENV === "test") {
