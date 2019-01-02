@@ -44,6 +44,7 @@ module.exports = function (passport, user) {
             //Input Verification
             const inputChecking = function (password, zip, phone_number) {
                 //Returns the error code which will be used later to break out of this function
+                //TODO Make this an array, logging each of the errors and displaying them at once
                 if (typeof zipcodes.lookup(zip) === "undefined") {
                     return 1;
                 };
@@ -70,7 +71,7 @@ module.exports = function (passport, user) {
                 return done(null, false, {
                     message: "Please input a US phone number ex. 123-456-7890"
                 });
-            }
+            };
 
             const generateHash = function (password) {
                 return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
@@ -156,5 +157,4 @@ module.exports = function (passport, user) {
             });
         }
     ));
-
-}
+};

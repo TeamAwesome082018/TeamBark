@@ -2,6 +2,7 @@ const db = require("../models");
 const cloudinary = require(`../cloudinary/cloudinary`);
 
 module.exports = {
+    //TODO have error handling if the user doesn't upload a dog photo, or have a placeholder photo until they do
     createDog: async function (newDog, dogPhotoPath, userID) {
         //Add the user's ID to the new dog object, so we can assign the foreign key in the dogs table
         newDog.UserId = userID;
