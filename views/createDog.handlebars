@@ -1,0 +1,12 @@
+<form id="newDog" method="post" action="/api/createdog" enctype="multipart/form-data">
+    <label for="dog_name">Dog Name</label>
+    <input name="dog_name" class="dogName" type="text" />
+    <label for="inputBreed">Breed</label>
+    <select>
+        <option value="golden_doodle">Golden Doodle</option>
+        <option value="bulldog">Bulldog</option>
+    </select>
+    <input class="fileUpload" type="file" name="dog_photo">
+    Select an Image
+    <input class="btn btn-success newDogSubmit" type="submit" value="Submit Dog" />
+</form>

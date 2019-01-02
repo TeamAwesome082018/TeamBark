@@ -1,17 +1,26 @@
-var db = require("../models");
+const db = require("../models");
+const userDogs = require(`../dogHandler/userDogs`);
+
+//Multer is to handle the image of the dog coming in with the post route
+//Is used with the api/createdog route
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' })
 
 module.exports = function (app) {
   // Get all our database data for all tables
   app.get("/api/user", function (req, res) {
-    db.User.findAll({}).then(function (dbExamples) {
-      res.json(dbExamples);
+    db.User.findAll({}).then(function (users) {
+      res.json(users);
     });
   });
-  app.get("/api/dog", function (req, res) {
-    db.Dog.findAll({}).then(function (dbExamples) {
-      res.json(dbExamples);
+
+  //Lists all the dogs to the screen as json data
+  app.get("/api/dog", isLoggedIn, function (req, res) {
+    db.Dog.findAll({}).then(function (dogs) {
+      res.json(dogs);
     });
   });
+
   app.get("/api/posts", function (req, res) {
     db.Posts.findAll({}).then(function (dbExamples) {
       res.json(dbExamples);
@@ -25,14 +34,35 @@ module.exports = function (app) {
     });
   });
 
-  app.post("/api/dog", function (req, res) {
-    db.Dog.create(req.body).then(function (dbExample) {
-      res.json(dbExample);
-    });
+  //Create a new dog
+  //Only availiable when logged in
+  app.post("/api/createdog", upload.single("dog_photo"), isLoggedIn, async function (req, res) {
+    //Goes to the userDogs object to create the new dog to make the routes cleaner
+    const userID = await userDogs.createDog(req.body, req.file.path, req.user.id)
+
+    //This then takes them to the page which displays all of their dogs
+    res.redirect(`/user/${userID}`)
   });
 
-  app.get("/signin", function (req, res) {
-    res.render("signin");
+  //This has to be a post request because a form is the way I've found to send an image
+  app.post("/api/updatedog", upload.single("dog_photo"), async function (req, res) {
+    let userID = "";
+
+    //If the user uploaded a file then send the file path, otherwise don't
+    if (req.file) {
+      userID = await userDogs.updateDog(req.body, req.file.path);
+    } else {
+      userID = await userDogs.updateDog(req.body);
+    };
+
+    await res.redirect(`/user/${userID}`)
+  });
+
+  app.delete("/api/deletedog", async function (req, res) {
+    //Goes to the dog handler and deletes the dog from the database as well as the cloudinary
+    const userID = await userDogs.deleteDog(req.body.id);
+
+    res.end(JSON.stringify(userID));
   });
 
   // Delete an example by id
@@ -43,4 +73,13 @@ module.exports = function (app) {
       res.json(dbExample);
     });
   });
+
+  //This function checks if the user is logged in
+  //Is used when the user is trying to access any part of the site
+  function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated())
+      return next();
+    res.redirect('/signin');
+  };
+
 };

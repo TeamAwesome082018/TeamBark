@@ -12,6 +12,14 @@ module.exports = function (sequelize, DataTypes) {
         breed: {
             type: DataTypes.STRING,
             notEmpty: true
+        },
+        photo_url: {
+            type: DataTypes.STRING,
+            notEmpty: true
+        },
+        //This is needed if case the user wants to change or delete their image from cloudinary
+        cloudinary_public_id: {
+            type: DataTypes.STRING
         }
     });
 

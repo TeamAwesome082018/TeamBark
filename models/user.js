@@ -1,5 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
-    var User = sequelize.define('User', {
+    const User = sequelize.define('User', {
         id: {
             autoIncrement: true,
             primaryKey: true,
@@ -13,10 +13,10 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             notEmpty: true
         },
-        username: {
-            type: DataTypes.TEXT
+        zip: {
+            type: DataTypes.STRING
         },
-        about: {
+        phone_number: {
             type: DataTypes.TEXT
         },
         email: {
@@ -28,9 +28,6 @@ module.exports = function (sequelize, DataTypes) {
         password: {
             type: DataTypes.STRING,
             allowNull: false
-        },
-        last_login: {
-            type: DataTypes.DATE
         },
         status: {
             type: DataTypes.ENUM('active', 'inactive'),
