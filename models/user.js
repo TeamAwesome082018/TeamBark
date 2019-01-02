@@ -13,8 +13,8 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             notEmpty: true
         },
-        address: {
-            type: DataTypes.TEXT
+        zip: {
+            type: DataTypes.STRING
         },
         phone_number: {
             type: DataTypes.TEXT
