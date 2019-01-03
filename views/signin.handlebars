@@ -1,4 +1,3 @@
-
 <style>
 
     img {
@@ -39,37 +38,18 @@ background-color: rgb(142, 179, 183);
             <br>
             <br>
             <br>
+            {{#if message}}
+            <div class="alert">{{message}}</div>
+            {{/if}}
             <div class="form-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">@</span>
-                </div>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    placeholder="E-mail">
+                <form id="signin" name="signin" method="post" action="signin">
+                    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="E-mail">
+                    <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
-            <div class="form-group">
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-            </div>
-            <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
         </div>
     </div>
+
+    <a href="/signup"><button class="signUpBtn">Sign Up</button></a>
 </div>
-<form>
-{{#if message}}
-    <div class="alert">{{message}}</div>
-{{/if}}
-
-<form id="signin" name="signin" method="post" action="signin">
-    <label for="email">Email Address</label>
-    <input class="text" name="email" type="text" />
-    <label for="password">Password</label>
-    <input name="password" type="password" />
-    <input class="btn" type="submit" value="Sign In" />
-</form>
-
-<a href="/signup"><button class="signUpBtn">Sign Up</button></a>
-
