@@ -13,12 +13,12 @@ module.exports = function (app) {
   });
 
   app.get("/createdog", isLoggedIn, function (req, res) {
-    res.render("createDog");
+    res.render("createdog");
   });
 
   app.get("/dog/:dogID", function (req, res) {
     db.Dog.findOne({ where: { id: req.params.dogID } }).then(function (dog) {
-      res.render("updateDog", { dog });
+      res.render("updatedog", { dog });
     });
   })
 
@@ -34,11 +34,11 @@ module.exports = function (app) {
   });
 
   app.get("/signin", function (req, res) {
-    res.render("signIn", { message: req.flash("error") });
+    res.render("signin", { message: req.flash("error") });
   });
 
   app.get("/signup", function (req, res) {
-    res.render("signUp", { message: req.flash("error") });
+    res.render("signup", { message: req.flash("error") });
   });
 
   //Displays the user information and the dogs which they have registered to the site
@@ -49,7 +49,7 @@ module.exports = function (app) {
     const user = await userDogs.getUserDogs(req.params.userID);
 
     //Then sending the userProfile object and the userDogsArray to handlebars for processing
-    res.render("userProfile", {
+    res.render("userprofile", {
       userProfile: user.userProfile,
       userDogsArray: user.userDogsArray
     });
