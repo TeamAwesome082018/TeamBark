@@ -3,12 +3,9 @@ const userDogs = require(`../dogHandler/userDogs`);
 
 module.exports = function (app) {
   // Load index page
-  app.get("/", isLoggedIn, function (req, res) {
-    db.Example.findAll({}).then(function (dbExamples) {
-      res.render("index", {
-        msg: "Welcome!",
-        examples: dbExamples
-      });
+  app.get("/", function (req, res) {
+    db.Example.findAll({}).then(function () {
+      res.render("index", {});
     });
   });
 

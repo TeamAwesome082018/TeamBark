@@ -1,7 +1,94 @@
+<style>
+  img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+    width: 75%;
+  }
+
+body {
+
+  background-color: rgb(199, 75, 90);
+
+}
+  @font-face {
+    font-family: Hiruko; src: url(HirukoBlackAlternate.ttf);
+  }
+
+  button {
+    border-radius: 80%;
+  }
+  
+  h1 {
+
+  text-align: center;
+  color: rgb(143, 176, 202);
+  font-size: 200px;
+  text-shadow: 4px 4px navy;
+  font-family: hiruko;
+  margin-left: -65px;
+}
+
+h2 {
+
+  text-align: center;
+  color: rgb(239, 240, 230);
+}
+
+.bg-modal {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.modal-content {
+  width: 500px;
+  height: 300px;
+  background-color: white;
+  border-radius: 4px;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+}
+
+input {
+  width: 50%;
+  display: block;
+  margin: 15px auto;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 14px;
+  font-size: 40px;
+  transform: rotate(45deg);
+  cursor: pointer;
+
+}
+</style>
+
+<img src="https://i.pinimg.com/originals/ee/cb/02/eecb0228d91417e5368c7dc527c16d8f.gif" alt="Walkin' Wiener Dog">
 <div id="home">
   <div class="container">
     <div class="row">
       <div class="col-8 offset-2">
+<<<<<<< HEAD
+        <h1> Bark! </h1>
+        <br>
+        <h2>Join The Rescue Squad Today</h2>
+        <br>
+        <br>
+        <button type="button" class="btn btn-primary btn-lg btn-block">Create Account</button>
+        <button type="button" class="btn btn-secondary btn-lg btn-block">Sign In</button>
+=======
         <h1>{{msg}}</h1>
         <h2>This is our Home Page!</h2>
         <form class="clearfix mb-4" action="POST">
@@ -24,9 +111,36 @@
             </li>
           {{/each}}
         </ul>
+>>>>>>> master
       </div>
     </div>
   </div>
 </div>
 
+<<<<<<< HEAD
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
+
+
+{{!-- modal section --}}
+
+<div class="bg-modal">
+  <div class="modal-content">
+
+    <div class="close">+</div>
+    <img src="https://cdn.dribbble.com/users/488076/screenshots/3650226/dog_running_003.gif" alt="green dog">
+
+    <form action="">
+      <input type="text" placeholder="E-mail">
+      <input type="text" placeholder="Password">
+      <input type="text" placeholder="Confirm Password">
+      <input type="text" placeholder="Zipcode">
+      <a href="" class="button">Create Account</a>
+    </form>
+  </div>
+</div>
+=======
+<script src="/js/index.js"></script>
+>>>>>>> master
