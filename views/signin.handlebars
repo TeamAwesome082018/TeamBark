@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <style>
 
     img {
@@ -58,3 +59,18 @@ background-color: rgb(142, 179, 183);
     </div>
 </div>
 <form>
+=======
+{{#if message}}
+    <div class="alert">{{message}}</div>
+{{/if}}
+
+<form id="signin" name="signin" method="post" action="signin">
+    <label for="email">Email Address</label>
+    <input class="text" name="email" type="text" />
+    <label for="password">Password</label>
+    <input name="password" type="password" />
+    <input class="btn" type="submit" value="Sign In" />
+</form>
+
+<a href="/signup"><button class="signUpBtn">Sign Up</button></a>
+>>>>>>> master

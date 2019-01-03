@@ -1,41 +1,53 @@
-module.exports = function (sequelize, Sequelize) {
-    var User = sequelize.define('user', {
+module.exports = function (sequelize, DataTypes) {
+    const User = sequelize.define('User', {
         id: {
             autoIncrement: true,
             primaryKey: true,
-            type: Sequelize.INTEGER
+            type: DataTypes.INTEGER
         },
         firstname: {
-            type: Sequelize.STRING,
+            type: DataTypes.STRING,
             notEmpty: true
         },
         lastname: {
-            type: Sequelize.STRING,
+            type: DataTypes.STRING,
             notEmpty: true
         },
-        username: {
-            type: Sequelize.TEXT
+        zip: {
+            type: DataTypes.STRING
         },
-        about: {
-            type: Sequelize.TEXT
+        phone_number: {
+            type: DataTypes.TEXT
         },
         email: {
-            type: Sequelize.STRING,
+            type: DataTypes.STRING,
             validate: {
                 isEmail: true
             }
         },
         password: {
-            type: Sequelize.STRING,
+            type: DataTypes.STRING,
             allowNull: false
         },
-        last_login: {
-            type: Sequelize.DATE
-        },
         status: {
-            type: Sequelize.ENUM('active', 'inactive'),
+            type: DataTypes.ENUM('active', 'inactive'),
             defaultValue: 'active'
         }
     });
+    User.associate = function (models) {
+        // Associating Author with Posts
+        // When an Author is deleted, also delete any associated Posts
+        User.hasMany(models.Posts, {
+            onDelete: "cascade"
+        });
+    };
+    User.associate = function (models) {
+        // Associating Author with Posts
+        // When an Author is deleted, also delete any associated Posts
+        User.hasMany(models.Dog, {
+            onDelete: "cascade"
+        });
+    };
+
     return User;
-}
+};
