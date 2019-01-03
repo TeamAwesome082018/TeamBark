@@ -13,12 +13,12 @@ module.exports = function (app) {
   });
 
   app.get("/createdog", isLoggedIn, function (req, res) {
-    res.render("createdog");
+    res.render("createDog");
   });
 
   app.get("/dog/:dogID", function (req, res) {
     db.Dog.findOne({ where: { id: req.params.dogID } }).then(function (dog) {
-      res.render("updatedog", { dog });
+      res.render("updateDog", { dog });
     });
   })
 
@@ -49,7 +49,7 @@ module.exports = function (app) {
     const user = await userDogs.getUserDogs(req.params.userID);
 
     //Then sending the userProfile object and the userDogsArray to handlebars for processing
-    res.render("userprofile", {
+    res.render("userProfile", {
       userProfile: user.userProfile,
       userDogsArray: user.userDogsArray
     });

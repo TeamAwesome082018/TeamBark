@@ -10,26 +10,26 @@
             </p>
             <div class="row">
                 {{#each userDogsArray}}
-                    <div class="card mt-4 col-6 float-left">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-6">
-                                    <p>
-                                        <strong>Dog:</strong> {{this.name}}
-                                    </p>
-                                    {{cloudinaryIMG this.picture width=150 height=150}}
-                                </div>
-                                <div class="col-6">
-                                    <p class="mt-5">
-                                        {{!-- This redirects to updateDog/Dog's ID which we then use so the user can edit the dog's profile --}}
-                                        <a href="/dog/{{this.id}}">Update the Doggo</a>
-                                        <br>
-                                        <a href="/">← Back To Home</a>
-                                    </p>
-                                </div>
+                <div class="card mt-4 col-6 float-left">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <p>
+                                    <strong>Dog:</strong> {{this.name}}
+                                </p>
+                                {{cloudinaryIMG this.picture width=150 height=150}}
+                            </div>
+                            <div class="col-6">
+                                <p class="mt-5">
+                                    {{!-- This redirects to updateDog/Dog's ID which we then use so the user can edit the dog's profile --}}
+                                    <a href="/dog/{{this.id}}">Update the Doggo</a>
+                                    <br>
+                                    <a href="/">← Back To Home</a>
+                                </p>
                             </div>
                         </div>
                     </div>
+                </div>
                 {{/each}}
             </div>
         </div>
