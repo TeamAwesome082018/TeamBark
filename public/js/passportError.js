@@ -23,7 +23,6 @@ const validateSignUp = () => {
     };
 
     //Returns the error code which will be used later to break out of this function
-    //TODO Make this an array, logging each of the errors and displaying them at once
     if (zip.length != 5 || zipInput === "") {
         errorArray.push("Zip must be a 5 digit US zip");
     };
