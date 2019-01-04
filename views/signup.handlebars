@@ -21,24 +21,24 @@
 
 <div class="errorMessages"></div>
 
-<form id="signup" name="signup" method="post" action="/signup">
+<form id="signup" name="signup" onsubmit="validateSignUp()" method="post" action="/signup">
     <label for="email">Email Address</label>
     <input class="text" name="email" type="email" />
     <br>
     <label for="firstname">Firstname</label>
-    <input name="firstname" type="text" />
+    <input name="firstname" class="firstname" type="text" />
     <br>
     <label for="lastname">Lastname</label>
-    <input name="lastname" type="text" />
+    <input name="lastname" class="lastname" type="text" />
     <br>
     <label for="zip">Zip Code</label>
-    <input name="zip" type="text" />
+    <input name="zip" class="zip" type="text" />
     <br>
     <label for="phone_number">Phone Number</label>
-    <input name="phone_number" type="text" />
+    <input name="phone_number" class="phone_number" type="text" />
     <br>
     <label for="password">Password</label>
-    <input name="password" type="password" />
+    <input name="password" class="password" type="password" />
     <br>
     <input class="btn" type="submit" value="Sign Up" />
 </form>
