@@ -32,7 +32,6 @@ module.exports = function (passport, user) {
             //First input validation checking, then onto passport signup
             //Email isn't case sensitive in passport
 
-            console.log(req.body.phone_number)
             //Getting the phone number & zip code into a standardized format
             let phone_number = "";
             //Converts the inputted number into an array, gets rid of all the spaces and adds only the numbers onto a string
