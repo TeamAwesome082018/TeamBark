@@ -1,4 +1,5 @@
-<form id="newDog" method="post" action="/api/createdog" enctype="multipart/form-data">
+<div class="errorMessage">Please input a name and image for the dog</div>
+<form id="newDog" name="newDog" method="post" onsubmit="validateNewDog()" action="/api/createdog" enctype="multipart/form-data">
     <label for="dog_name">Dog Name</label>
     <input name="dog_name" class="dogName" type="text" />
     <label for="inputBreed">Breed</label>
@@ -10,3 +11,5 @@
     Select an Image
     <input class="btn btn-success newDogSubmit" type="submit" value="Submit Dog" />
 </form>
+
+<script src="/js/createDog.js"></script>
