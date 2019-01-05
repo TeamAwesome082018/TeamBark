@@ -15,6 +15,14 @@ module.exports = function (app) {
 
   app.get("/dog/:dogID", function (req, res) {
     db.Dog.findOne({ where: { id: req.params.dogID } }).then(function (dog) {
+      //First checks if the current user that's signed in owns this dog
+      //This will show or hide the form on the update dog page
+      if (typeof req.user === "undefined") {
+        dog.isCurrentUser = false;
+      } else if (req.user.id === dog.UserId) {
+        dog.isCurrentUser = true;
+      };
+
       res.render("updateDog", { dog });
     });
   })
