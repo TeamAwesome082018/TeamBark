@@ -7,6 +7,7 @@ module.exports = {
         //Add the user's ID to the new dog object, so we can assign the foreign key in the dogs table
         newDog.UserId = userID;
         newDog.photo_url = "";
+        console.log(dogPhotoPath)
         //Upload the image the user selected to cloudinary
         await cloudinary.uploader.upload(dogPhotoPath, function (error, result) {
             if (error) {
