@@ -40,11 +40,15 @@ module.exports = function (app) {
 
   //Displays the user information and the dogs which they have registered to the site
   app.get("/user/:userID", async function (req, res) {
-
     //Goes to the dogHandler object and grabs all the dogs for the user
     //This is used to keep the routes page clean
-    const user = await userDogs.getUserDogs(req.params.userID);
-
+    let user = {};
+    if (typeof req.user === "undefined") {
+      user = await userDogs.getUserDogs(req.params.userID);
+    } else {
+      user = await userDogs.getUserDogs(req.params.userID, req.user.id);
+    };
+    console.log(user.userProfile)
     //Then sending the userProfile object and the userDogsArray to handlebars for processing
     res.render("userProfile", {
       userProfile: user.userProfile,

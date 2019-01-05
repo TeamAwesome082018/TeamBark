@@ -22,7 +22,9 @@
                             <div class="col-6">
                                 <p class="mt-5">
                                     {{!-- This redirects to updateDog/Dog's ID which we then use so the user can edit the dog's profile --}}
+                                    {{#if ../userProfile.isCurrentUser}}
                                     <a href="/dog/{{this.id}}">Update the Doggo</a>
+                                    {{/if}}
                                     <br>
                                     <a href="/">← Back To Home</a>
                                 </p>
