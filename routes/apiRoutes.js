@@ -1,5 +1,6 @@
 const db = require("../models");
 const userDogs = require(`../dogHandler/userDogs`);
+const userPosts = require('../dogHandler/posts')
 
 //Multer is to handle the image of the dog coming in with the post route
 //Is used with the api/createdog route
@@ -34,6 +35,15 @@ module.exports = function (app) {
     });
   });
 
+  //Create a post
+  //Only availiable when logged in
+  app.post("/api/newpost", isLoggedIn, async function (req, res) {
+    //Goes to the userDogs object to create the new dog to make the routes cleaner
+    const userID = await userPosts.createPost(req.body, req.user.id)
+
+    //This then takes them to the page which displays all of their dogs
+    res.redirect(`/user/${userID}`)
+  });
   //Create a new dog
   //Only availiable when logged in
   app.post("/api/createdog", upload.single("dog_photo"), isLoggedIn, async function (req, res) {

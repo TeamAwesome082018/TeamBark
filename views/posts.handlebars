@@ -1,0 +1,17 @@
+<form id="newPost" method="post" action="/api/newpost" enctype="multipart/form-data">
+    <label for="breed">Breed</label>
+    <select name="breed">
+        <option value="golden_doodle">Golden Doodle</option>
+        <option value="bulldog">Bulldog</option>
+    </select>
+    <label for="post_type">Post Type</label>
+    <select name="post_type">
+        <option value="dog_post">Dog Post</option>
+        <option value="meetup">Meetup</option>
+    </select>
+    <div class="form-group">
+        <label for="text">Post:</label>
+        <textarea id="text" name="text" rows="8" cols="40"></textarea>
+    </div>
+    <input class="btn btn-success newPostSubmit" type="submit" value="Submit Post" />
+</form>

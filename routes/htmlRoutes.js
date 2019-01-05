@@ -30,6 +30,10 @@ module.exports = function (app) {
     });
   });
 
+  app.get("/posts", function (req, res) {
+    res.render("posts", { message: req.flash("error") });
+  });
+
   app.get("/signin", function (req, res) {
     res.render("signin", { message: req.flash("error") });
   });
