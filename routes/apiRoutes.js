@@ -38,6 +38,7 @@ module.exports = function (app) {
   //Create a post
   //Only availiable when logged in
   app.post("/api/newpost", isLoggedIn, async function (req, res) {
+
     //Goes to the userDogs object to create the new dog to make the routes cleaner
     const userID = await userPosts.createPost(req.body, req.user.id)
 
