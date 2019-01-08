@@ -21,7 +21,8 @@ module.exports = {
 
         // Write the new dog that was just inputted into the database
         await db.Dog.create(newDog).then(function (dbDog) {
-            console.log("Success")
+            console.log("Success");
+            console.log(newDog);
         });
         //Must have return outside of the functions above to get the await working
         return userID
