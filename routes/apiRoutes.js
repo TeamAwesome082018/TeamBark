@@ -43,7 +43,14 @@ module.exports = function (app) {
     const userID = await userPosts.createPost(req.body, req.user.id)
 
     //This then takes them to the page which displays all of their dogs
-    res.redirect(`/user/${userID}`)
+    res.redirect(`/user/posts/${userID}`)
+  });
+  //delte post
+  app.delete("/api/deletepost", async function (req, res) {
+    //Goes to the post handler and deletes the post from the database as well as the cloudinary
+    const userID = await userPosts.deletePost(req.body.id);
+
+    res.end(JSON.stringify(userID));
   });
   //Create a new dog
   //Only availiable when logged in

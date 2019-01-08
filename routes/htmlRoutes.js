@@ -1,11 +1,18 @@
 const db = require("../models");
 const userDogs = require(`../dogHandler/userDogs`);
+const userPosts = require(`../dogHandler/posts`);
 
 module.exports = function (app) {
   // Load index page
   app.get("/", function (req, res) {
     db.Example.findAll({}).then(function () {
       res.render("index", {});
+    });
+  });
+
+  app.get("/home", function (req, res) {
+    db.Example.findAll({}).then(function () {
+      res.render("home", {});
     });
   });
 
@@ -31,7 +38,21 @@ module.exports = function (app) {
   });
 
   app.get("/posts", function (req, res) {
-    res.render("posts", { message: req.flash("error") });
+    res.render("createPosts", { message: req.flash("error") });
+  });
+
+  //Displays the user information and the posts which they have made to the site
+  app.get("/user/posts/:userID", async function (req, res) {
+
+    //Goes to the dogHandler object and grabs all the dogs for the user
+    //This is used to keep the routes page clean
+    const user = await userPosts.getUserPosts(req.params.userID);
+
+    //Then sending the userProfile object and the userDogsArray to handlebars for processing
+    res.render("viewposts", {
+      userProfile: user.userProfile,
+      userPostsArray: user.userPostsArray
+    });
   });
 
   app.get("/signin", function (req, res) {
