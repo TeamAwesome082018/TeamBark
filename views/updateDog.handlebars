@@ -11,6 +11,7 @@
                             {{cloudinaryIMG dog.photo_url width=150 height=150}}
                         </p>
                     </div>
+                    {{#if dog.isCurrentUser}}
                     <div class="col-6">
                         <p class="mt-5">
                             <form id="updateDog" method="post" action="/api/updatedog" enctype="multipart/form-data">
@@ -29,6 +30,7 @@
                             <a href="/">← Back To Home</a>
                         </p>
                     </div>
+                    {{/if}}
                 </div>
             </div>
         </div>
