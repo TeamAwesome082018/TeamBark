@@ -13,3 +13,91 @@
 </form>
 
 <script src="/js/createDog.js"></script>
+
+<style>
+    img {
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            margin-top: 20%;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 10px solid yellow;
+        }
+
+        body {
+            background-color: rgb(55, 98, 116);
+        }
+
+        #breedBtn {
+            background-color: pink;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .gender-btn {
+            align-self: auto;
+        }
+        #male {
+            background-color: rgb(143, 179, 179);
+        }
+
+        #female {
+            background-color: rgb(143, 179, 179);
+        }
+
+        #addDog {
+            background-color: rgb(219, 137, 131);
+        }
+    </style>
+</head>
+
+<body>
+
+    <img src="https://images.pexels.com/photos/1345191/pexels-photo-1345191.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+        alt="cute puppy">
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-8 offset-2">
+                <form>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput"></label>
+                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Dog Name">
+                    </div>
+                    <div class="input-group">
+                        <input type="text" class="form-control" aria-label="Text input with dropdown button"
+                            placeholder="Breed">
+                        <div class="input-group-append">
+                            <button id="breedBtn" class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Poodle</a>
+                                <a class="dropdown-item" href="#">Golden Retriever</a>
+                                <a class="dropdown-item" href="#">Shih Tzu</a>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <button type="button" id="female" class="btn btn-primary btn-sm">Female</button>
+                    <button type="button" id="male" class="btn btn-secondary btn-sm">Male</button>
+                    <div class="input-group">
+                        <input type="text" class="form-control" aria-label="Text input with dropdown button"
+                            placeholder="Age">
+                        <div class="input-group-append">
+                            <button id="ageBtn" class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                            <div class="dropdown-menu">
+                                <select class="1-100"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Notes</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                        <button type="button" id="addDog" class="btn btn-primary btn-sm">Add Dog</button>
+                </form>
+            </div>
+        </div>
+    </div>
