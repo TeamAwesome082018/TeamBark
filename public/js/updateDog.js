@@ -11,3 +11,4 @@ $(".deleteDog").on("click", function () {
         }
     })
 });
+

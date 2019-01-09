@@ -38,19 +38,21 @@ module.exports = function (app) {
     res.render("lostDogs")
   })
 
-  // Load example page and pass in an example by id
-  app.get("/example/:id", function (req, res) {
-    db.Example.findOne({ where: { id: req.params.id } }).then(function (
-      dbExample
-    ) {
-      res.render("example", {
-        example: dbExample
-      });
-    });
-  });
 
   app.get("/posts", function (req, res) {
     res.render("createPosts", { message: req.flash("error") });
+  });
+
+  app.get("/post/:postId", function (req, res) {
+    db.Posts.findOne({ where: { id: req.params.postId } }).then(function (post) {
+      if (typeof req.user === "undefined") {
+        post.isCurrentUser = false;
+      } else if (req.user.id === post.UserId) {
+        post.isCurrentUser = true;
+      };
+
+      res.render("updatePost", { post });
+    });
   });
 
   //Displays the user information and the posts which they have made to the site
