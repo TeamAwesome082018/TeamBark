@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-8 offset-2">
-            <h5>User Profile:</h5>
+            <h5>User Post:</h5>
             <p>
                 <strong>ID</strong>: {{userProfile.id}}
             </p>
@@ -9,32 +9,27 @@
                 <strong>Name</strong>: {{userProfile.userName}}
             </p>
             <div class="row">
-                {{#each userDogsArray}}
+                {{#each userPostsArray}}
                 <div class="card mt-4 col-6 float-left">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12">
                                 <p>
-                                    <strong>Dog:</strong> {{this.name}}
+                                    {{this.type}}
                                 </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
                                 <p>
-                                    <strong>Breed:</strong> {{this.breed}}
+                                    {{this.name}}
                                 </p>
-                                <p>
-                                    <strong>Gender:</strong> {{this.gender}}
-                                </p>
-                                <p>
-                                    <strong>Note:</strong> {{this.note}}
-                                </p>
-                                {{cloudinaryIMG this.picture width=150 height=150}}
                             </div>
                             <div class="col-6">
                                 <p class="mt-5">
                                     {{!-- This redirects to updateDog/Dog's ID which we then use so the user can edit
                                     the dog's profile --}}
-                                    {{#if ../userProfile.isCurrentUser}}
-                                    <a href="/dog/{{this.id}}">Update the Doggo</a>
-                                    {{/if}}
+                                    <a href="/post/{{this.id}}">Update the Post</a>
                                     <br>
                                     <a href="/">← Back To Home</a>
                                 </p>
