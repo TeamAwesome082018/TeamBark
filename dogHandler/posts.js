@@ -13,7 +13,7 @@ module.exports = {
         //Must have return outside of the functions above to get the await working
         return userID
     },
-    getUserPosts: async function (userID) {
+    getUserPosts: async function (userID, loggedInID) {
         //Build the user object so we can move it to handlebars to display
         let user = {};
         user.userProfile = {};
@@ -23,6 +23,10 @@ module.exports = {
         await db.User.findOne({ where: { id: userID } }).then(function (userInfo) {
             user.userProfile.userName = `${userInfo.firstname} ${userInfo.lastname}`
         });
+
+        if (+userID === loggedInID) {
+            user.userProfile.isCurrentUser = true;
+        };
         console.log(user)
         //Then query the posts database to get all the posts that belong to that user
         await db.Posts.findAll({ where: { UserId: userID } }).then(function (posts) {
@@ -37,6 +41,19 @@ module.exports = {
             return user.userPostsArray;
         });
         return user;
+    },
+    updatePost: async function (updatedPost) {
+        let userID = "";
+        //When querying the post database pull the userID
+        await db.Posts.findOne({ where: { id: updatedPost.id } }).then(function (post) {
+            userID = post.UserId;
+        });
+
+        //If they inputted a new post then this updates it
+        if (updatedPost.text !== "") {
+            await db.Posts.update({ text: updatedPost.text }, { where: { id: updatedPost.id } })
+        }
+        return userID
     },
     deletePost: async function (postID) {
         let userID = "";
