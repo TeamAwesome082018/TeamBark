@@ -34,8 +34,9 @@ module.exports = function (app) {
     });
   });
 
-  app.get("/lostdogs", function (req, res) {
-    res.render("lostDogs")
+  app.get("/lostdogs", async function (req, res) {
+    const lostDogArray = await userDogs.getLostDogs();
+    res.render("lostDogs", { lostDogArray })
   })
 
 
