@@ -21,21 +21,29 @@ module.exports = {
 
         // Write the new dog that was just inputted into the database
         await db.Dog.create(newDog).then(function (dbDog) {
-            console.log("Success")
+            console.log("Success");
+            console.log(newDog);
         });
         //Must have return outside of the functions above to get the await working
         return userID
     },
-    getUserDogs: async function (userID) {
+    getUserDogs: async function (userID, loggedInID) {
         //Build the user object so we can move it to handlebars to display
         const user = {};
         user.userProfile = {};
         user.userDogsArray = [];
         user.userProfile.id = userID;
+
         //First get the username from the user table
         await db.User.findOne({ where: { id: userID } }).then(function (userInfo) {
             user.userProfile.userName = `${userInfo.firstname} ${userInfo.lastname}`
         });
+
+        //Checking if the current user logged in is the owner of this dog
+        //We use this to display the update route
+        if (+userID === loggedInID) {
+            user.userProfile.isCurrentUser = true;
+        };
 
         //Then query the dogs database to get all the dogs that belong to that user
         await db.Dog.findAll({ where: { UserId: userID } }).then(function (dogs) {

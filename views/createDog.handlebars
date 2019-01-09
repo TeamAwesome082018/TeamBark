@@ -2,8 +2,8 @@
 <form id="newDog" name="newDog" method="post" onsubmit="validateNewDog()" action="/api/createdog" enctype="multipart/form-data">
     <label for="dog_name">Dog Name</label>
     <input name="dog_name" class="dogName" type="text" />
-    <label for="inputBreed">Breed</label>
-    <select>
+    <label for="breed">Breed</label>
+    <select name="breed">
         <option value="golden_doodle">Golden Doodle</option>
         <option value="bulldog">Bulldog</option>
     </select>
