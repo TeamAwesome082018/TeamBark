@@ -1,7 +1,11 @@
 <style>
 
     h1 {
-
+        font-family:'Fredoka One', cursive;
+        text-align: center;
+        color: rgb(57, 125, 161);
+        text-shadow: 4px 4px navy;
+        font-size: 106px;
 }
     body {
         background-color: rgb(227, 227, 227);
@@ -18,8 +22,8 @@
         border-radius: 25px;
         border: 5px solid rgb(254, 191, 120);
         padding: 20px;
-        width: auto;
-        height: auto;
+        width: 75%;
+        height: 25%;
         background-color: rgb(27, 88, 119);
         text-align: center;
     }
@@ -28,8 +32,8 @@
         border-radius: 25px;
         border: 5px solid rgb(254, 191, 120);
         padding: 20px;
-        width: auto;
-        height: auto;
+        width: 75%;
+        height: 25%;
         background-color: rgb(27, 88, 119);
         text-align: center;
     }
@@ -38,8 +42,8 @@
         border-radius: 25px;
         border: 5px solid rgb(254, 191, 120);
         padding: 20px;
-        width: auto;
-        height: auto;
+        width: 75%;
+        height: 25%;
         background-color: rgb(27, 88, 119);
         text-align: center;
     }
@@ -48,8 +52,8 @@
         border-radius: 25px;
         border: 5px solid rgb(254, 191, 120);
         padding: 20px;
-        width: auto;
-        height: auto;
+        width: 75%;
+        height: 25%;
         background-color: rgb(27, 88, 119);
         text-align: center;
     }
@@ -58,8 +62,8 @@
         border-radius: 25px;
         border: 5px solid rgb(254, 191, 120);
         padding: 20px;
-        width: auto;
-        height: auto;
+        width: 75%;
+        height: 25%;
         background-color: rgb(27, 88, 119);
         text-align: center;
     }
@@ -68,12 +72,16 @@
         border-radius: 25px;
         border: 5px solid rgb(254, 191, 120);
         padding: 20px;
-        width: auto;
-        height: auto;
+        width: 75%;
+        height: 25%;
         background-color: rgb(27, 88, 119);
         text-align: center;
     }
 
+    #submit {
+        background-color: burlywood;
+    }
+    
 </style>
 <div class="container">
     <div class="row">
@@ -110,8 +118,7 @@
                 {{!-- <label for="password">Password</label> --}}
                 <input name="password" class="password" type="password" placeholder="New Password" />
                 <br>
-                <br>
-                <input class="btn" type="submit" value="Sign Up" />
+                <input class="btn btn-primary btn-lg" id="submit" type="submit" value="Sign Up" />
             </form>
         </div>
     </div>
