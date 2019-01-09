@@ -34,7 +34,7 @@
                             <p class="card-text"> {{this.breed}} </p>
                             <p class="card-text"> {{this.gender}} </p>
                             <p class="card-text"> {{this.Note}} </p>
-                            <a href="viewposts.handlebars" class="btn btn-primary">Go to Page</a>
+                            <a href="/api/dog" class="btn btn-primary">Go to Page</a>
                         </div>
                     </div>
                     <div class="row">
@@ -47,6 +47,7 @@
                                 <a href="viewposts.handlebars"><button class="fas fa-arrow-left fa-2x"></button></a>
                             </p>
                         </div>
+                        {{/each}}
                     </div>
                 </div>
             </div>
