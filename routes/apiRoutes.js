@@ -83,6 +83,12 @@ module.exports = function (app) {
     res.end(JSON.stringify(userID));
   });
 
+  app.post("/api/lostdog", async function (req, res) {
+    await userDogs.lostDog(req.body);
+
+    res.redirect("/lostdogs")
+  });
+
   // Delete an example by id
   app.delete("/api/examples/:id", function (req, res) {
     db.Example.destroy({ where: { id: req.params.id } }).then(function (

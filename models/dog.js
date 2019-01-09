@@ -16,6 +16,11 @@ module.exports = function (sequelize, DataTypes) {
         gender: {
             type: DataTypes.STRING,
         },
+        lost: {
+            type: DataTypes.BOOLEAN,
+            notEmpty: true,
+            defaultValue: false
+        },
         dog_note: {
             type: DataTypes.TEXT,
         },

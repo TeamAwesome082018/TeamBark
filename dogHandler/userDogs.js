@@ -2,11 +2,11 @@ const db = require("../models");
 const cloudinary = require(`../cloudinary/cloudinary`);
 
 module.exports = {
-    //TODO have error handling if the user doesn't upload a dog photo, or have a placeholder photo until they do
     createDog: async function (newDog, dogPhotoPath, userID) {
         //Add the user's ID to the new dog object, so we can assign the foreign key in the dogs table
         newDog.UserId = userID;
         newDog.photo_url = "";
+        newDog.lost = false;
         console.log(dogPhotoPath)
         //Upload the image the user selected to cloudinary
         await cloudinary.uploader.upload(dogPhotoPath, function (error, result) {
@@ -116,5 +116,24 @@ module.exports = {
         await db.Dog.destroy({ where: { id: dogID } });
 
         return userID;
+    }, lostDog: async function (dogInfo) {
+        //First build the lost dog posting to send to the database
+        let lostDogPost = {};
+        lostDogPost.text = dogInfo.text;
+        lostDogPost.breed = dogInfo.breed;
+        lostDogPost.post_type = "lost_dog";
+        //Get the user data for the dog
+        await db.Dog.findOne({ where: { id: dogInfo.id } }).then(function (dog) {
+            lostDogPost.UserId = dog.UserId;
+        });
+        //Update the dog table to show that the dog is missing
+        await db.Dog.update({ lost: 1 }, { where: { id: dogInfo.id } });
+        //Make a new post that the dog is missing
+        await db.Posts.create(lostDogPost).then(function (dbPost) {
+            console.log("Success");
+        }).catch(function (error) {
+            console.log(error);
+        });
+        return;
     }
 };

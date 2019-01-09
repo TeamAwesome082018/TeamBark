@@ -32,6 +32,10 @@ module.exports = function (app) {
 
       res.render("updateDog", { dog });
     });
+  });
+
+  app.get("/lostdogs", function (req, res) {
+    res.render("lostDogs")
   })
 
   // Load example page and pass in an example by id

@@ -1,4 +1,4 @@
-{{!-- Update Picture, Update Name --}}
+{{!-- Update Picture, Update Name, Report dog as lost --}}
 <div class="container">
     <div class="row">
         <div class="card mt-4 float-left">
@@ -12,29 +12,54 @@
                         </p>
                     </div>
                     {{#if dog.isCurrentUser}}
-                    <div class="col-6">
-                        <p class="mt-5">
-                            <form id="updateDog" method="post" action="/api/updatedog" enctype="multipart/form-data">
-                                {{!-- Below must be hidden as it passes in what dog we are updating and we don't want users to change it --}}
-                                <input name="id" type="hidden" value="{{dog.id}}">
-                                <label for="dog_name">Dog Name</label>
-                                <input name="dog_name" class="dogName" type="text" />
-                                <br><br>
-                                Select an Image
-                                <input class="fileUpload" type="file" name="dog_photo">
-                                <br><br>
-                                <input class="btn btn-success newDogSubmit" type="submit" value="Update Dog" />
-                            </form>
-                            <input class="btn btn-danger deleteDog" data-id="{{dog.id}}" type="submit" value="Delete Dog" />
-                            <br>
-                            <a href="/">← Back To Home</a>
-                        </p>
-                    </div>
+                        <div class="col-6">
+                            <p class="mt-5">
+                                <form id="updateDog" method="post" action="/api/updatedog" enctype="multipart/form-data">
+                                    {{!-- Below must be hidden as it passes in what dog we are updating and we don't want users to change it --}}
+                                    <input name="id" type="hidden" value="{{dog.id}}">
+                                    <label for="dog_name">Dog Name</label>
+                                    <input name="dog_name" class="dogName" type="text" />
+                                    <br><br>
+                                    Select an Image
+                                    <input class="fileUpload" type="file" name="dog_photo">
+                                    <br><br>
+                                    <br>
+                                    <input class="btn btn-success newDogSubmit" type="submit" value="Update Dog" />
+                                </form>
+                                <input class="btn btn-danger deleteDog" data-id="{{dog.id}}" type="submit" value="Delete Dog" />
+                                <br>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#lostDogModal">
+                                    {{dog.dog_name}} is lost!
+                                </button>
+                                <br>
+                                <a href="/">← Back To Home</a>
+                            </p>
+                        </div>
                     {{/if}}
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<div class="modal" tabindex="-1" id="lostDogModal">
+    <div class="modal-content text-center">
+        <div class="modal-body">
+            <form id="lostDog" method="post" action="/api/lostdog">
+                <input name="id" type="hidden" value="{{dog.id}}">
+                <input name="breed" type="hidden" value="{{dog.breed}}">
+                <p>What would you like to say?</p>
+                <textarea name="text" rows="5" cols="50"></textarea>
+                <br>
+                <input class="btn btn-danger reportLostDog" type="submit" value="Report {{dog.dog_name}} as lost" />
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">False Alarm!</button>
+        </div>
+    </div>
+</div>
+</div>
 </div>
 
 <script src="/js/updateDog.js" type="text/javascript"></script>
