@@ -28,13 +28,6 @@ module.exports = function (app) {
     });
   });
 
-  // Create a new example
-  app.post("/api/examples", function (req, res) {
-    db.Example.create(req.body).then(function (dbExample) {
-      res.json(dbExample);
-    });
-  });
-
   //Create a post
   //Only availiable when logged in
   app.post("/api/newpost", isLoggedIn, async function (req, res) {
@@ -45,7 +38,16 @@ module.exports = function (app) {
     //This then takes them to the page which displays all of their dogs
     res.redirect(`/user/posts/${userID}`)
   });
-  //delte post
+
+  app.post("/api/updatepost", async function (req, res) {
+    let userID = "";
+
+    //If the user uploaded a file then send the file path, otherwise don't
+    userID = await userPosts.updatePost(req.body);
+
+    await res.redirect(`/user/posts/${userID}`)
+  });
+  //delete post
   app.delete("/api/deletepost", async function (req, res) {
     //Goes to the post handler and deletes the post from the database as well as the cloudinary
     const userID = await userPosts.deletePost(req.body.id);
@@ -81,15 +83,6 @@ module.exports = function (app) {
     const userID = await userDogs.deleteDog(req.body.id);
 
     res.end(JSON.stringify(userID));
-  });
-
-  // Delete an example by id
-  app.delete("/api/examples/:id", function (req, res) {
-    db.Example.destroy({ where: { id: req.params.id } }).then(function (
-      dbExample
-    ) {
-      res.json(dbExample);
-    });
   });
 
   //This function checks if the user is logged in

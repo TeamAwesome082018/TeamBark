@@ -1,0 +1,41 @@
+{{!-- Update Picture, Update Name --}}
+<div class="container">
+    <div class="row">
+        <div class="card mt-4 float-left">
+            <div class="card-body">
+                <div class="row">
+                    {{#if post.isCurrentUser}}
+                    <div class="col-12">
+                        <p class="mt-5">
+                            <form id="updatePost" method="post" action="/api/updatepost">
+                                {{!-- Below must be hidden as it passes in what post we are updating and we don't want
+                                users to change it --}}
+                                <input name="id" type="hidden" value="{{post.id}}">
+                                <label for="breed">Breed</label>
+                                <select name="breed">
+                                    <option value="golden_doodle">Golden Doodle</option>
+                                    <option value="bulldog">Bulldog</option>
+                                </select>
+                                <label for="post_type">Post Type</label>
+                                <select name="post_type">
+                                    <option value="Dog Post">Dog Post</option>
+                                    <option value="Meet Up">Meet Up</option>
+                                </select>
+                                <div class="form-group">
+                                    <label for="text">Post:</label>
+                                    <textarea id="text" name="text" rows="8" cols="40"></textarea>
+                                    <input class="btn btn-success newPostSubmit" type="submit" value="Update Post" />
+                            </form>
+                            <input class="btn btn-danger deletePost" data-id="{{post.id}}" type="submit" value="Delete Post" />
+                            <br>
+                            <a href="/">← Back To Home</a>
+                        </p>
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/updatePost.js" type="text/javascript"></script>
