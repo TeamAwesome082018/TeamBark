@@ -13,6 +13,12 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             notEmpty: true
         },
+        gender: {
+            type: DataTypes.STRING,
+        },
+        dog_note: {
+            type: DataTypes.TEXT,
+        },
         photo_url: {
             type: DataTypes.STRING,
             notEmpty: true
