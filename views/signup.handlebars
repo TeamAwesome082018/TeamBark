@@ -1,46 +1,122 @@
 <style>
 
-    body {
-    background-color: rgb(227, 227, 227);
+    h1 {
+
 }
+    body {
+        background-color: rgb(227, 227, 227);
+        display: block;
+        margin: auto;
+    }
+
+    form {
+        text-align: center;
+        font-size: 36px;
+    }
+
+    .email {
+        border-radius: 25px;
+        border: 5px solid rgb(254, 191, 120);
+        padding: 20px;
+        width: auto;
+        height: auto;
+        background-color: rgb(27, 88, 119);
+        text-align: center;
+    }
+
+    .firstname {
+        border-radius: 25px;
+        border: 5px solid rgb(254, 191, 120);
+        padding: 20px;
+        width: auto;
+        height: auto;
+        background-color: rgb(27, 88, 119);
+        text-align: center;
+    }
+
+    .lastname {
+        border-radius: 25px;
+        border: 5px solid rgb(254, 191, 120);
+        padding: 20px;
+        width: auto;
+        height: auto;
+        background-color: rgb(27, 88, 119);
+        text-align: center;
+    }
+
+    .zip {
+        border-radius: 25px;
+        border: 5px solid rgb(254, 191, 120);
+        padding: 20px;
+        width: auto;
+        height: auto;
+        background-color: rgb(27, 88, 119);
+        text-align: center;
+    }
+
+    .phone_number {
+        border-radius: 25px;
+        border: 5px solid rgb(254, 191, 120);
+        padding: 20px;
+        width: auto;
+        height: auto;
+        background-color: rgb(27, 88, 119);
+        text-align: center;
+    }
+
+    .password {
+        border-radius: 25px;
+        border: 5px solid rgb(254, 191, 120);
+        padding: 20px;
+        width: auto;
+        height: auto;
+        background-color: rgb(27, 88, 119);
+        text-align: center;
+    }
 
 </style>
 <div class="container">
     <div class="row">
-        <div class="col-6">
+        <div class="mx-auto">
             <h1> Sign-Up </h1>
             <img src="https://cdn.dribbble.com/users/488076/screenshots/3650226/dog_running_003.gif" alt="green dog">
+            {{#if message}}
+            <div class="alert">{{message}}</div>
+            {{/if}}
+
+            <div class="errorMessages"></div>
+
+            <form id="signup" name="signup" onsubmit="validateSignUp()" method="post" action="/signup">
+                {{!-- <label for="email">Email Address</label> --}}
+                <input class="email" name="email" type="email" placeholder="E-mail" />
+                <br>
+                <br>
+                {{!-- <label for="firstname">Firstname</label> --}}
+                <input name="firstname" class="firstname" type="text" placeholder="First Name" />
+                <br>
+                <br>
+                {{!-- <label for="lastname">Lastname</label> --}}
+                <input name="lastname" class="lastname" type="text" placeholder="Last Name" />
+                <br>
+                <br>
+                {{!-- <label for="zip">Zip Code</label> --}}
+                <input name="zip" class="zip" type="text" placeholder="Zip Code" />
+                <br>
+                <br>
+                {{!-- <label for="phone_number">Phone Number</label> --}}
+                <input name="phone_number" class="phone_number" type="text" placeholder="Phone Number" />
+                <br>
+                <br>
+                {{!-- <label for="password">Password</label> --}}
+                <input name="password" class="password" type="password" placeholder="New Password" />
+                <br>
+                <br>
+                <input class="btn" type="submit" value="Sign Up" />
+            </form>
         </div>
     </div>
 </div>
 
 
-{{#if message}}
-<div class="alert">{{message}}</div>
-{{/if}}
-
-<div class="errorMessages"></div>
-
-<form id="signup" name="signup" onsubmit="validateSignUp()" method="post" action="/signup">
-    <label for="email">Email Address</label>
-    <input class="text" name="email" type="email" />
-    <br>
-    <label for="firstname">Firstname</label>
-    <input name="firstname" class="firstname" type="text" />
-    <br>
-    <label for="lastname">Lastname</label>
-    <input name="lastname" class="lastname" type="text" />
-    <br>
-    <label for="zip">Zip Code</label>
-    <input name="zip" class="zip" type="text" />
-    <br>
-    <label for="phone_number">Phone Number</label>
-    <input name="phone_number" class="phone_number" type="text" />
-    <br>
-    <label for="password">Password</label>
-    <input name="password" class="password" type="password" />
-    <br>
-    <input class="btn" type="submit" value="Sign Up" />
-</form>
 
 <script src="/js/passportError.js"></script>
