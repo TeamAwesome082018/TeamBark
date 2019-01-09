@@ -15,7 +15,8 @@
                     <div class="col-6">
                         <p class="mt-5">
                             <form id="updateDog" method="post" action="/api/updatedog" enctype="multipart/form-data">
-                                {{!-- Below must be hidden as it passes in what dog we are updating and we don't want users to change it --}}
+                                {{!-- Below must be hidden as it passes in what dog we are updating and we don't want
+                                users to change it --}}
                                 <input name="id" type="hidden" value="{{dog.id}}">
                                 <label for="dog_name">Dog Name</label>
                                 <input name="dog_name" class="dogName" type="text" />
