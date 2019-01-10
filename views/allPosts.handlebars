@@ -1,44 +1,110 @@
-<div class="container">
+<style>
+    .container-fluid {
+        background-color: rgb(241, 241, 241);
+        margin: auto;
+        padding-top: 5em;
+        padding: 5em;
+    }
+
+    #dog {
+        color: rgb(2, 2, 117);
+        align-content: center;
+        font-size: 7em;
+        font-family: 'Fredoka One', cursive;
+        text-shadow: 5px 2px rgb(149, 181, 240);
+    }
+
+    #profile {
+        border: 10px solid rgb(148, 83, 83);
+        padding: 5px;
+        margin: 20px 10px 20px 10px;
+        box-shadow: 0 0 2em rgb(85, 148, 206);
+
+    }
+
+    .card-title {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-weight: 600;
+        font-size: 3em;
+    }
+
+    .card-text {
+        font-size: 2em;
+    }
+
+    #navbar {
+        background-color: rgb(188, 119, 115);
+
+    }
+</style>
+
+<div class="container-fluid">
     <div class="row">
-        <div class="col-8 offset-2">
-            <h5>User Post:</h5>
-            <p>
-                <strong>ID</strong>: {{userProfile.id}}
-            </p>
-            <p>
-                <strong>Name</strong>: {{userProfile.userName}}
-            </p>
-            <div class="row">
-                {{#each allPostsArray}}
-                <div class="card mt-4 col-6 float-left">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <p>
-                                    {{this.type}}
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <p>
-                                    {{this.name}}
-                                </p>
-                            </div>
-                            <div class="col-6">
-                                <p class="mt-5">
-                                    {{!-- This redirects to updatePost/Post's ID which we then use so the user can edit
-                                    this post --}}
-                                    <a href="/post/{{this.id}}">Update the Post</a>
-                                    <br>
-                                    <a href="/home">← Back To Home</a>
-                                </p>
-                            </div>
-                        </div>
+        <div class="col-sm-12 text-center">
+            <div id="dog">Posts</div>
+        </div>
+    </div>
+    <div class="row">
+        {{#each allPostsArray}}
+        <div class="card mt-4 col-sm-12 float-left">
+            <div class="card-title">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <strong>{{this.type}}</strong>
+                        </p>
                     </div>
                 </div>
-                {{/each}}
+            </div>
+            <div class="card-text">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p>
+                            {{this.name}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <p class="mt-5">
+                        {{!-- This redirects to updatePost/Post's ID which we then use so the user can edit
+                        this post --}}
+                        <a href="/post/{{this.id}}" class="btn btn-info btn-lg">Update the Post</a>
+                        <br>
+                        <a href="/home" class="btn btn-primary btn-lg">← Back To Home</a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
+    {{/each}}
+</div>
+</div>
+</div>
+<footer class="page-footer font-small blue fixed-bottom scrolling-footer" id="navbar">
+
+    <ul class="list-unstyled list-inline text-center">
+        <li class="list-inline-item">
+
+            <a href="/createdog" class="btn-lg btn-paw mx-1" type="button" role="button">
+                <i class="fas fa-paw fa-5px"></i>
+            </a>
+        </li>
+        <li class="list-inline-item">
+            <a href="/posts" class="btn-floating btn-lg btn-pen mx-1" type="button" role="button">
+                <i class="fas fa-pen-fancy fa-5px"></i>
+            </a>
+        </li>
+        <li class="list-inline-item">
+            <a href="/allposts" class="btn-floating btn-lg btn-bone mx-1" type="button" role="button">
+                <i class="fas fa-bone fa-5px"> </i>
+            </a>
+        </li>
+        <li class="list-inline-item">
+            <a href="/lostdogs" class="btn-floating btn-lg btn-arrow mx-1" type="button" role="button">
+                <i class="fas fa-location-arrow fa-5px"> </i>
+            </a>
+        </li>
+    </ul>
+</footer>
 </div>
