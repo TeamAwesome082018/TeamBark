@@ -6,8 +6,8 @@ $(".deletePost").on("click", function () {
         type: "DELETE",
         data: { id },
         datatype: "json",
-        success: function (userId) {
-            window.location.replace(`/user/posts/${userId}`)
+        success: function (userID) {
+            window.location.replace(`/user/posts/${userID}`)
         }
     });
 });
