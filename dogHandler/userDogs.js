@@ -143,6 +143,7 @@ module.exports = {
                 usersLostDog.name = dog.dog_name;
                 usersLostDog.id = dog.id;
                 usersLostDog.breed = dog.breed;
+                usersLostDog.picture = dog.cloudinary_public_id;
                 //Nesting the queries to the database, probably not the best way to do this
                 lostDogArray.push(usersLostDog);
             });
