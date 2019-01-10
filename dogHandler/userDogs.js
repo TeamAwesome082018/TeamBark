@@ -144,7 +144,7 @@ module.exports = {
                 usersLostDog.id = dog.id;
                 usersLostDog.breed = dog.breed.charAt(0).toUpperCase() + dog.breed.substr(1);
                 usersLostDog.picture = dog.cloudinary_public_id;
-                usersLostDog.userId = dog.UserId
+                usersLostDog.userId = dog.UserId;
 
                 //Checks if the user owns this dog for them to mark them as found
                 if (dog.UserId === userId) {
@@ -162,7 +162,8 @@ module.exports = {
         for (let i = 0; i < lostDogArray.length; i++) {
             await db.User.findOne({ where: { id: lostDogArray[i].userId } }).then(function (user) {
                 lostDogArray[i].zip = user.dataValues.zip;
-                lostDogArray[i].ownerName = `${user.dataValues.firstname} ${user.dataValues.lastname}`
+                lostDogArray[i].ownerName = `${user.dataValues.firstname} ${user.dataValues.lastname}`;
+                lostDogArray[i].phone = user.dataValues.phone_number;
             });
         };
 
