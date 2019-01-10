@@ -11,8 +11,8 @@ module.exports = function (app) {
   });
 
   app.get("/home", function (req, res) {
-    db.Example.findAll({}).then(function () {
-      res.render("home", {});
+    db.Posts.findOne({}).then(function () {
+      res.render("userProfile", {});
     });
   });
 
