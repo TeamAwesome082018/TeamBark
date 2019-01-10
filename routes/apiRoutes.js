@@ -23,8 +23,8 @@ module.exports = function (app) {
   });
 
   app.get("/api/posts", function (req, res) {
-    db.Posts.findAll({}).then(function (dbExamples) {
-      res.json(dbExamples);
+    db.Posts.findAll({}).then(function (dbPosts) {
+      res.json(dbPosts);
     });
   });
 
