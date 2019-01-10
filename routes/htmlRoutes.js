@@ -10,10 +10,9 @@ module.exports = function (app) {
     });
   });
 
-  app.get("/home", function (req, res) {
-    db.Posts.findOne({}).then(function () {
-      res.render("userProfile", {});
-    });
+  app.get("/home", isLoggedIn, function (req, res) {
+    const userId = req.user.id;
+    res.redirect(`/user/${userId}`);
   });
 
   app.get("/createdog", isLoggedIn, function (req, res) {
