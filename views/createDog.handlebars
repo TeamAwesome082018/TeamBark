@@ -38,8 +38,8 @@
         }
     </style>
 
-<div class="errorMessage">Please input a name and image for the dog</div>
 <img src="https://images.pexels.com/photos/1345191/pexels-photo-1345191.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="cute puppy">
+<div class="errorMessage text-center" style="display: none">Please input a name and image for the dog</div>
 <br>
 <div class="container">
     <div class="row">
@@ -51,7 +51,7 @@
                     <input name="dog_name" class="form-control" type="text" placeholder="Dog Name">
                 </div>
                 <select name="breed">
-                    <option value="golden_doodle">Golden Doodle</option>
+                    <option value="golden doodle">Golden Doodle</option>
                     <option value="bulldog">Bulldog</option>
                 </select>
                 <br>
@@ -61,7 +61,8 @@
                 </select>
                 <br>
                 <input class="fileUpload" type="file" name="dog_photo">
-                <label for="dog_note">Notes</label>
+                <br>
+                <label for="dog_note">What are they like?</label>
                 <textarea class="form-control" id="dogNotes" name="dog_note" rows="3"></textarea>
                 <input class="btn btn-primary btn-sm" type="submit" value="Add Dog" />
             </form>
