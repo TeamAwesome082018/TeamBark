@@ -138,14 +138,26 @@ module.exports = {
     }, getLostDogs: async function () {
         const lostDogArray = [];
         await db.Dog.findAll({ where: { lost: true } }).then(function (lostDog) {
-            lostDog.forEach(dog => lostDogArray.push(dog.dataValues));
+            lostDog.forEach(dog => {
+                let usersLostDog = {};
+                usersLostDog.name = dog.dog_name;
+                usersLostDog.id = dog.id;
+                usersLostDog.breed = dog.breed;
+                db.Posts.findAll({ where: { UserId: dog.dataValues.UserId, post_type: "lost_dog" } }).then(function (lostDogPost) {
+                    lostDogPost.forEach(singleLostDog => usersLostDog.text = singleLostDog.dataValues.text);
+                    lostDogArray.push(usersLostDog);
+                    console.log(usersLostDog, lostDogArray)
+                })
+            });
+            // lostDog.forEach(dog => lostDogArray.push(dog.dataValues));
         });
+        await console.log(lostDogArray)
         //Right now there is an error with below. It's not properly waiting for this to complete before sending the lost dog array.
-        await lostDogArray.forEach((dog, index) => db.Posts.findOne({ where: { UserId: dog.UserId, post_type: "lost_dog" } }).then(function (lostDogPost) {
-            lostDogArray[index].post = lostDogPost.dataValues.text;
-            console.log(lostDogPost.dataValues.text)
-        }));
+        // await lostDogArray.forEach((dog, index) => db.Posts.findOne({ where: { UserId: dog.UserId, post_type: "lost_dog" } }).then(function (lostDogPost) {
+        //     lostDogArray[index].post = lostDogPost.dataValues.text;
+        //     console.log(lostDogPost.dataValues.text)
+        // }));
         //Currently sending it without the lost dog post
-        return lostDogArray;
+        return;
     }
 };
