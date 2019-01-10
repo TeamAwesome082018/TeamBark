@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="row">
+        <div class="col-8 offset-2">
+            <h5>User Post:</h5>
+            <p>
+                <strong>ID</strong>: {{userProfile.id}}
+            </p>
+            <p>
+                <strong>Name</strong>: {{userProfile.userName}}
+            </p>
+            <div class="row">
+                {{#each allPostsArray}}
+                <div class="card mt-4 col-6 float-left">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <p>
+                                    {{this.type}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <p>
+                                    {{this.name}}
+                                </p>
+                            </div>
+                            <div class="col-6">
+                                <p class="mt-5">
+                                    {{!-- This redirects to updatePost/Post's ID which we then use so the user can edit
+                                    this post --}}
+                                    <a href="/post/{{this.id}}">Update the Post</a>
+                                    <br>
+                                    <a href="/home">← Back To Home</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>

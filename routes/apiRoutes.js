@@ -35,7 +35,7 @@ module.exports = function (app) {
     //Goes to the userDogs object to create the new dog to make the routes cleaner
     const userID = await userPosts.createPost(req.body, req.user.id)
 
-    //This then takes them to the page which displays all of their dogs
+    //This then takes them to the page which displays all of their posts
     res.redirect(`/user/posts/${userID}`)
   });
 
@@ -51,7 +51,9 @@ module.exports = function (app) {
   app.delete("/api/deletepost", async function (req, res) {
     //Goes to the post handler and deletes the post from the database as well as the cloudinary
     const userID = await userPosts.deletePost(req.body.id);
+    const userId = req.user.id;
 
+    res.redirect(`/user/posts/${userId}`);
     res.end(JSON.stringify(userID));
   });
   //Create a new dog
@@ -84,6 +86,18 @@ module.exports = function (app) {
 
     res.end(JSON.stringify(userID));
   });
+
+  app.post("/api/lostdog", async function (req, res) {
+    await userDogs.lostDog(req.body);
+
+    res.redirect("/lostdogs")
+  });
+
+  app.put("/api/founddog", async function (req, res) {
+    const userID = await userDogs.foundDog(req.body.id)
+
+    res.end(JSON.stringify(userID));
+  })
 
   //This function checks if the user is logged in
   //Is used when the user is trying to access any part of the site

@@ -19,6 +19,7 @@
         box-shadow: 0 0 2em rgb(85, 148, 206);
 
     }
+
     .card-title {
         font-family: monospace;
         font-weight: 800;
@@ -26,6 +27,11 @@
     }
     .card-text {
         font-size: 2em;
+}
+
+    #navbar {
+        background-color: rgb(188, 119, 115);
+
     }
 
 </style>
@@ -38,7 +44,7 @@
     </div>
     <div class="row">
         <div class="col-sm-12 text-right">
-            <div id="plus"><button class="fas fa-plus-circle fa-5x"></button>
+            <div id="plus"><a href="/createdog"><button class="fas fa-plus-circle fa-3x"></button></a>
             </div>
         </div>
     </div>
@@ -86,24 +92,29 @@
 </div>
 </div>
 </div>
-<footer class="page-footer font-small blue fixed-bottom scrolling-footer">
+    <footer class="page-footer font-small blue fixed-bottom scrolling-footer" id="navbar">
 
-    <ul class="list-unstyled list-inline text-center">
-        <li class="list-inline-item">
-            <a href="#" class="btn-lg btn-paw mx-1 fa-7x" type="button" role="button">
-                <i class="fas fa-paw"></i>
-            </a>
-        </li>
-        <li class="list-inline-item">
-            <a href="#" class="btn-floating btn-lg btn-bone mx-1 fa-7x" type="button" role="button">
-                <i class="fas fa-bone"> </i>
-            </a>
-        </li>
-        <li class="list-inline-item">
-            <a href="/lostdogs" class="btn-floating btn-lg btn-arrow mx-1 fa-7x" type="button" role="button">
-                <i class="fas fa-location-arrow"> </i>
-            </a>
-        </li>
-    </ul>
-</footer>
+        <ul class="list-unstyled list-inline text-center">
+            <li class="list-inline-item">
+                <a href="#" class="btn-lg btn-paw mx-1" type="button" role="button">
+                    <i class="fas fa-paw"></i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a href="#" class="btn-floating btn-lg btn-pen mx-1" type="button" role="button">
+                    <i class="fas fa-pen-fancy"></i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a href="#" class="btn-floating btn-lg btn-bone mx-1" type="button" role="button">
+                    <i class="fas fa-bone"> </i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a href="/lostdogs" class="btn-floating btn-lg btn-arrow mx-1" type="button" role="button">
+                    <i class="fas fa-location-arrow"> </i>
+                </a>
+            </li>
+        </ul>
+    </footer>
 </div>
