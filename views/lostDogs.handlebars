@@ -1,47 +1,48 @@
-Query the database for all dogs that are flagged as lost
-Add them to an array
-Query the user database to get their zip, add that to the array
-Display it to handlebars
-
 <div class="container">
     <div class="row">
         <div class="col-8 offset-2">
+            <h2 class="text-center">Lost Dogs!</h2>
             <div class="row">
                 {{#each lostDogArray}}
-                    <div class="card mt-4 col-12 float-left">
+                    <div class="card mt-4 col-12">
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-12">
-                                    <p>
-                                        <strong>Dog:</strong> {{this.name}}
-                                    </p>
-                                    <p>
-                                        <strong>Breed:</strong> {{this.breed}}
-                                    </p>
-                                    <p>
-                                        <strong>Gender:</strong> {{this.gender}}
-                                    </p>
-                                    <p>
-                                        <strong>Note:</strong> {{this.note}}
-                                    </p>
-                                    {{cloudinaryIMG this.picture width=150 height=150}}
-                                </div>
-                                <div class="col-6">
-                                    <p class="mt-5">
-                                        {{!-- This redirects to updateDog/Dog's ID which we then use so the user can edit
-                                    the dog's profile --}}
-                                        {{#if ../userProfile.isCurrentUser}}
-                                            <a href="/dog/{{this.id}}">Update the Doggo</a>
-                                        {{/if}}
-                                        <br>
-                                        <a href="/">← Back To Home</a>
-                                    </p>
-                                </div>
+                            <h3 class="text-center">{{this.name}}</h3>
+                            <div class="text-center">
+                                {{cloudinaryIMG this.picture width=150 height=150}}
                             </div>
+                            <p>{{this.breed}}</p>
+                            <p><strong>Contact: </strong>{{this.ownerName}}</p>
+                            <p><strong>From: </strong>{{this.zip}}</p>
+                            <p>{{this.text}}</p>
+                            {{#if this.ownDog}}
+                                <button class="foundDog btn btn-primary" value="{{this.id}}">Found them!</button>
+                            {{/if}}
                         </div>
                     </div>
-                {{/each}}
             </div>
         </div>
+        {{/each}}
     </div>
+    <footer class="page-footer font-small blue fixed-bottom scrolling-footer">
+
+        <ul class="list-unstyled list-inline text-center">
+            <li class="list-inline-item">
+                <a href="/user/posts/{{userId}}" class="btn-lg btn-paw mx-1" type="button" role="button">
+                    <i class="fas fa-paw"></i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a href="/allPosts" class="btn-floating btn-lg btn-bone mx-1" type="button" role="button">
+                    <i class="fas fa-bone"> </i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a href="/lostdogs" class="btn-floating btn-lg btn-arrow mx-1" type="button" role="button">
+                    <i class="fas fa-location-arrow"> </i>
+                </a>
+            </li>
+        </ul>
+    </footer>
 </div>
+
+<script src="/js/foundDog.js"></script>

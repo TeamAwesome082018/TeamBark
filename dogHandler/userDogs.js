@@ -135,33 +135,58 @@ module.exports = {
             console.log(error);
         });
         return;
-    }, getLostDogs: async function () {
+    }, getLostDogs: async function (userId) {
         const lostDogArray = [];
         await db.Dog.findAll({ where: { lost: true } }).then(function (lostDog) {
             lostDog.forEach(dog => {
                 let usersLostDog = {};
                 usersLostDog.name = dog.dog_name;
                 usersLostDog.id = dog.id;
-                usersLostDog.breed = dog.breed;
+                usersLostDog.breed = dog.breed.charAt(0).toUpperCase() + dog.breed.substr(1);
                 usersLostDog.picture = dog.cloudinary_public_id;
+                usersLostDog.userId = dog.UserId
+
+                //Checks if the user owns this dog for them to mark them as found
+                if (dog.UserId === userId) {
+                    usersLostDog.ownDog = true;
+                } else {
+                    usersLostDog.ownDog = false;
+                };
+
                 //Nesting the queries to the database, probably not the best way to do this
                 lostDogArray.push(usersLostDog);
             });
         });
         //Using a for loop since await struggles with forEach
+        //TODO do a comparison with how close the dog is to the user and sort them
         for (let i = 0; i < lostDogArray.length; i++) {
-            await db.User.findOne({ where: { id: lostDogArray[i].id } }).then(function (user) {
+            await db.User.findOne({ where: { id: lostDogArray[i].userId } }).then(function (user) {
                 lostDogArray[i].zip = user.dataValues.zip;
+                lostDogArray[i].ownerName = `${user.dataValues.firstname} ${user.dataValues.lastname}`
             });
         };
 
         //Looping through all the lost dogs to get the posts associted to them
         //This is findOne as you can only have one post per lost dog
+        //TODO make an association of the dog to the post - Right now if a user has multiple dogs lost only the first post shows
         for (let i = 0; i < lostDogArray.length; i++) {
-            await db.Posts.findOne({ where: { UserId: lostDogArray[i].id, post_type: "lost_dog" } }).then(function (lostDogPost) {
+            await db.Posts.findOne({ where: { UserId: lostDogArray[i].userId, post_type: "lost_dog" } }).then(function (lostDogPost) {
                 lostDogArray[i].text = lostDogPost.dataValues.text;
             });
         };
+
         return await lostDogArray;
+    }, foundDog: async function (dogId) {
+        let userId = "";
+        //When querying the dog database pull the userID
+        await db.Dog.findOne({ where: { id: dogId } }).then(function (dog) {
+            userId = dog.UserId;
+        });
+
+        //TODO make a delete route that deletes the post when the dog is found
+
+        await db.Dog.update({ lost: false }, { where: { id: dogId } })
+
+        return userId;
     }
 };

@@ -25,7 +25,7 @@ app.use(passport.session()); // persistent login sessions
 //Handlebar helper for cloudinary
 //This takes the images that the user inputted and displays them to the screen
 handlebars.registerHelper("cloudinaryIMG", function (url, params) {
-  return new handlebars.SafeString(cloudinary.image(url, { width: params.hash.width, height: params.hash.height, crop: "fill" }));
+  return new handlebars.SafeString(cloudinary.image(url, { width: params.hash.width, height: params.hash.height, radius: 20, crop: "fill" }));
 });
 
 // Handlebars
