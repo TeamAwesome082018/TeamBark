@@ -14,12 +14,27 @@
 
         body {
             background-color: rgb(55, 98, 116);
+            font-family: 'Fredoka One', cursive;
         }
 
         #breedBtn {
             background-color: pink;
             margin-left: auto;
             margin-right: auto;
+        }
+
+        select {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        label {
+            width: 100%;
+            color: white;
+        }
+
+        .fileUpload {
+            margin-top: 10px;
         }
 
         .gender-btn {
@@ -43,9 +58,8 @@
 <br>
 <div class="container">
     <div class="row">
-        <div class="col-8 offset-2">
-            <form class="align-center" name="newDog" method="post" onsubmit="validateNewDog()" action="/api/createdog"
-                enctype="multipart/form-data">
+        <div class="col-10 offset-1">
+            <form class="align-center" name="newDog" method="post" onsubmit="validateNewDog()" action="/api/createdog" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="formGroupExampleInput"></label>
                     <input name="dog_name" class="form-control" type="text" placeholder="Dog Name">
@@ -62,7 +76,8 @@
                 <br>
                 <input class="fileUpload" type="file" name="dog_photo">
                 <br>
-                <label for="dog_note">What are they like?</label>
+                <hr>
+                <label for="dog_note" class="text-center">What are they like?</label>
                 <textarea class="form-control" id="dogNotes" name="dog_note" rows="3"></textarea>
                 <input class="btn btn-primary btn-sm" type="submit" value="Add Dog" />
             </form>
