@@ -143,21 +143,24 @@ module.exports = {
                 usersLostDog.name = dog.dog_name;
                 usersLostDog.id = dog.id;
                 usersLostDog.breed = dog.breed;
-                db.Posts.findAll({ where: { UserId: dog.dataValues.UserId, post_type: "lost_dog" } }).then(function (lostDogPost) {
-                    lostDogPost.forEach(singleLostDog => usersLostDog.text = singleLostDog.dataValues.text);
-                    lostDogArray.push(usersLostDog);
-                    console.log(usersLostDog, lostDogArray)
-                })
+                //Nesting the queries to the database, probably not the best way to do this
+                lostDogArray.push(usersLostDog);
             });
-            // lostDog.forEach(dog => lostDogArray.push(dog.dataValues));
         });
-        await console.log(lostDogArray)
-        //Right now there is an error with below. It's not properly waiting for this to complete before sending the lost dog array.
-        // await lostDogArray.forEach((dog, index) => db.Posts.findOne({ where: { UserId: dog.UserId, post_type: "lost_dog" } }).then(function (lostDogPost) {
-        //     lostDogArray[index].post = lostDogPost.dataValues.text;
-        //     console.log(lostDogPost.dataValues.text)
-        // }));
-        //Currently sending it without the lost dog post
-        return;
+        //Using a for loop since await struggles with forEach
+        for (let i = 0; i < lostDogArray.length; i++) {
+            await db.User.findOne({ where: { id: lostDogArray[i].id } }).then(function (user) {
+                lostDogArray[i].zip = user.dataValues.zip;
+            });
+        };
+
+        //Looping through all the lost dogs to get the posts associted to them
+        //This is findOne as you can only have one post per lost dog
+        for (let i = 0; i < lostDogArray.length; i++) {
+            await db.Posts.findOne({ where: { UserId: lostDogArray[i].id, post_type: "lost_dog" } }).then(function (lostDogPost) {
+                lostDogArray[i].text = lostDogPost.dataValues.text;
+            });
+        };
+        return await lostDogArray;
     }
 };
