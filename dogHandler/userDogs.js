@@ -2,11 +2,11 @@ const db = require("../models");
 const cloudinary = require(`../cloudinary/cloudinary`);
 
 module.exports = {
-    //TODO have error handling if the user doesn't upload a dog photo, or have a placeholder photo until they do
     createDog: async function (newDog, dogPhotoPath, userID) {
         //Add the user's ID to the new dog object, so we can assign the foreign key in the dogs table
         newDog.UserId = userID;
         newDog.photo_url = "";
+        newDog.lost = false;
         console.log(dogPhotoPath)
         //Upload the image the user selected to cloudinary
         await cloudinary.uploader.upload(dogPhotoPath, function (error, result) {
@@ -116,5 +116,78 @@ module.exports = {
         await db.Dog.destroy({ where: { id: dogID } });
 
         return userID;
+    }, lostDog: async function (dogInfo) {
+        //First build the lost dog posting to send to the database
+        let lostDogPost = {};
+        lostDogPost.text = dogInfo.text;
+        lostDogPost.breed = dogInfo.breed;
+        lostDogPost.post_type = "lost_dog";
+        //Get the user data for the dog
+        await db.Dog.findOne({ where: { id: dogInfo.id } }).then(function (dog) {
+            lostDogPost.UserId = dog.UserId;
+        });
+        //Update the dog table to show that the dog is missing
+        await db.Dog.update({ lost: 1 }, { where: { id: dogInfo.id } });
+        //Make a new post that the dog is missing
+        await db.Posts.create(lostDogPost).then(function (dbPost) {
+            console.log("Success");
+        }).catch(function (error) {
+            console.log(error);
+        });
+        return;
+    }, getLostDogs: async function (userId) {
+        const lostDogArray = [];
+        await db.Dog.findAll({ where: { lost: true } }).then(function (lostDog) {
+            lostDog.forEach(dog => {
+                let usersLostDog = {};
+                usersLostDog.name = dog.dog_name;
+                usersLostDog.id = dog.id;
+                usersLostDog.breed = dog.breed.charAt(0).toUpperCase() + dog.breed.substr(1);
+                usersLostDog.picture = dog.cloudinary_public_id;
+                usersLostDog.userId = dog.UserId;
+
+                //Checks if the user owns this dog for them to mark them as found
+                if (dog.UserId === userId) {
+                    usersLostDog.ownDog = true;
+                } else {
+                    usersLostDog.ownDog = false;
+                };
+
+                //Nesting the queries to the database, probably not the best way to do this
+                lostDogArray.push(usersLostDog);
+            });
+        });
+        //Using a for loop since await struggles with forEach
+        //TODO do a comparison with how close the dog is to the user and sort them
+        for (let i = 0; i < lostDogArray.length; i++) {
+            await db.User.findOne({ where: { id: lostDogArray[i].userId } }).then(function (user) {
+                lostDogArray[i].zip = user.dataValues.zip;
+                lostDogArray[i].ownerName = `${user.dataValues.firstname} ${user.dataValues.lastname}`;
+                lostDogArray[i].phone = user.dataValues.phone_number;
+            });
+        };
+
+        //Looping through all the lost dogs to get the posts associted to them
+        //This is findOne as you can only have one post per lost dog
+        //TODO make an association of the dog to the post - Right now if a user has multiple dogs lost only the first post shows
+        for (let i = 0; i < lostDogArray.length; i++) {
+            await db.Posts.findOne({ where: { UserId: lostDogArray[i].userId, post_type: "lost_dog" } }).then(function (lostDogPost) {
+                lostDogArray[i].text = lostDogPost.dataValues.text;
+            });
+        };
+
+        return await lostDogArray;
+    }, foundDog: async function (dogId) {
+        let userId = "";
+        //When querying the dog database pull the userID
+        await db.Dog.findOne({ where: { id: dogId } }).then(function (dog) {
+            userId = dog.UserId;
+        });
+
+        //TODO make a delete route that deletes the post when the dog is found
+
+        await db.Dog.update({ lost: false }, { where: { id: dogId } })
+
+        return userId;
     }
 };

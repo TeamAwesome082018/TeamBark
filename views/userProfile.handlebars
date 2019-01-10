@@ -10,7 +10,6 @@
         font-family: 'Fredoka One', cursive;
     }
 </style>
-<script src="/js/posts.js"></script>
 
 <div class="container">
     <div class="row">
@@ -18,60 +17,60 @@
             <div id="dog">Dogs</div>
         </div>
         <div class="col-md-6 text-right">
-            <div id="plus"><button class="fas fa-plus-circle fa-3x"></button>
+            <div id="plus"><a href="/createdog"><button class="fas fa-plus-circle fa-3x"></button></a>
             </div>
         </div>
         <br>
         <div class="row">
             {{#each userDogsArray}}
-            <div class="col-md-12">
-                <div class="card text-center">
-                    <div class="row">
-                        <div class="card-header">
-                            {{cloudinaryIMG this.picture width=150 height=150}}
+                <div class="col-md-12">
+                    <div class="card text-center">
+                        <div class="row">
+                            <div class="card-header">
+                                {{cloudinaryIMG this.picture width=150 height=150}}
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title"> {{this.name}} </h5>
+                                <p class="card-text"> {{this.breed}} </p>
+                                <p class="card-text"> {{this.gender}} </p>
+                                <p class="card-text"> {{this.Note}} </p>
+                                <a href="/api/dog" class="btn btn-primary">Go to Page</a>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <h5 class="card-title"> {{this.name}} </h5>
-                            <p class="card-text"> {{this.breed}} </p>
-                            <p class="card-text"> {{this.gender}} </p>
-                            <p class="card-text"> {{this.Note}} </p>
-                            <a href="/api/dog" class="btn btn-primary">Go to Page</a>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="mt-5">
+                                    {{#if ../userProfile.isCurrentUser}}
+                                        <a href="/dog/{{this.id}}">Update Dog</a>
+                                    {{/if}}
+                                    <br>
+                                    <a href="viewposts.handlebars"><button class="fas fa-arrow-left fa-2x"></button></a>
+                                </p>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p class="mt-5">
-                                {{#if ../userProfile.isCurrentUser}}
-                                <a href="/dog/{{this.id}}">Update Dog</a>
-                                {{/if}}
-                                <br>
-                                <a href="viewposts.handlebars"><button class="fas fa-arrow-left fa-2x"></button></a>
-                            </p>
-                        </div>
-                        {{/each}}
-                    </div>
-                </div>
-            </div>
+            {{/each}}
         </div>
     </div>
-    <footer class="page-footer font-small blue fixed-bottom scrolling-footer">
+</div>
+<footer class="page-footer font-small blue fixed-bottom scrolling-footer">
 
-        <ul class="list-unstyled list-inline text-center">
-            <li class="list-inline-item">
-                <a href="/user/posts/{{userId}}" class="btn-lg btn-paw mx-1" type="button" role="button">
-                    <i class="fas fa-paw"></i>
-                </a>
-            </li>
-            <li class="list-inline-item">
-                <a href="/allPosts" class="btn-floating btn-lg btn-bone mx-1" type="button" role="button">
-                    <i class="fas fa-bone"> </i>
-                </a>
-            </li>
-            <li class="list-inline-item">
-                <a href="/lostdogs" class="btn-floating btn-lg btn-arrow mx-1" type="button" role="button">
-                    <i class="fas fa-location-arrow"> </i>
-                </a>
-            </li>
-        </ul>
-    </footer>
+    <ul class="list-unstyled list-inline text-center">
+        <li class="list-inline-item">
+            <a href="/user/posts/{{userId}}" class="btn-lg btn-paw mx-1" type="button" role="button">
+                <i class="fas fa-paw"></i>
+            </a>
+        </li>
+        <li class="list-inline-item">
+            <a href="/allPosts" class="btn-floating btn-lg btn-bone mx-1" type="button" role="button">
+                <i class="fas fa-bone"> </i>
+            </a>
+        </li>
+        <li class="list-inline-item">
+            <a href="/lostdogs" class="btn-floating btn-lg btn-arrow mx-1" type="button" role="button">
+                <i class="fas fa-location-arrow"> </i>
+            </a>
+        </li>
+    </ul>
+</footer>
 </div>

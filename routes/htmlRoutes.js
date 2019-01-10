@@ -34,6 +34,23 @@ module.exports = function (app) {
     });
   });
 
+  app.get("/lostdogs", async function (req, res) {
+    let userId = "";
+    let lostDogArray = [];
+    //TODO edit this so it's better than sending them to the first user
+    //The reason for this right now is because we want everyone, even those not logged in to see lost dogs if they want
+    if (typeof req.user === "undefined") {
+      userId = "1";
+      lostDogArray = await userDogs.getLostDogs();
+    } else {
+      userId = req.user.id;
+      lostDogArray = await userDogs.getLostDogs(userId);
+    }
+
+    res.render("lostDogs", { lostDogArray, userId })
+  })
+
+
   app.get("/posts", function (req, res) {
     const userId = req.user.id;
 
@@ -54,7 +71,7 @@ module.exports = function (app) {
     });
   });
 
-  app.get("/allPosts", async function (req, res) {
+  app.get("/allPosts", isLoggedIn, async function (req, res) {
     const userId = req.user.id;
     //Goes to the dogHandler object and grabs all the dogs for the user
     //This is used to keep the routes page clean
@@ -69,7 +86,7 @@ module.exports = function (app) {
   });
 
   //Displays the user information and the posts which they have made to the site
-  app.get("/user/posts/:userID", async function (req, res) {
+  app.get("/user/posts/:userID", isLoggedIn, async function (req, res) {
     const userId = req.user.id;
     //Goes to the dogHandler object and grabs all the dogs for the user
     //This is used to keep the routes page clean
@@ -92,7 +109,7 @@ module.exports = function (app) {
   });
 
   //Displays the user information and the dogs which they have registered to the site
-  app.get("/user/:userID", async function (req, res) {
+  app.get("/user/:userID", isLoggedIn, async function (req, res) {
     //Goes to the dogHandler object and grabs all the dogs for the user
     //This is used to keep the routes page clean
     let user = {};
