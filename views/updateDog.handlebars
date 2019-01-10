@@ -12,29 +12,25 @@
                         </p>
                     </div>
                     {{#if dog.isCurrentUser}}
-                        <div class="col-6">
-                            <p class="mt-5">
-                                <form id="updateDog" method="post" action="/api/updatedog" enctype="multipart/form-data">
-                                    {{!-- Below must be hidden as it passes in what dog we are updating and we don't want users to change it --}}
-                                    <input name="id" type="hidden" value="{{dog.id}}">
-                                    <label for="dog_name">Dog Name</label>
-                                    <input name="dog_name" class="dogName" type="text" />
-                                    <br><br>
-                                    Select an Image
-                                    <input class="fileUpload" type="file" name="dog_photo">
-                                    <br><br>
-                                    <br>
-                                    <input class="btn btn-success newDogSubmit" type="submit" value="Update Dog" />
-                                </form>
-                                <input class="btn btn-danger deleteDog" data-id="{{dog.id}}" type="submit" value="Delete Dog" />
-                                <br>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#lostDogModal">
-                                    {{dog.dog_name}} is lost!
-                                </button>
-                                <br>
-                                <a href="/">← Back To Home</a>
-                            </p>
-                        </div>
+                    <div class="col-6">
+                        <p class="mt-5">
+                            <form id="updateDog" method="post" action="/api/updatedog" enctype="multipart/form-data">
+                                {{!-- Below must be hidden as it passes in what dog we are updating and we don't want
+                                users to change it --}}
+                                <input name="id" type="hidden" value="{{dog.id}}">
+                                <label for="dog_name">Dog Name</label>
+                                <input name="dog_name" class="dogName" type="text" />
+                                <br><br>
+                                Select an Image
+                                <input class="fileUpload" type="file" name="dog_photo">
+                                <br><br>
+                                <input class="btn btn-success newDogSubmit" type="submit" value="Update Dog" />
+                            </form>
+                            <input class="btn btn-danger deleteDog" data-id="{{dog.id}}" type="submit" value="Delete Dog" />
+                            <br>
+                            <a href="/">← Back To Home</a>
+                        </p>
+                    </div>
                     {{/if}}
                 </div>
             </div>
