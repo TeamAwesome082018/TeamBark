@@ -54,6 +54,20 @@ module.exports = function (app) {
     });
   });
 
+  app.get("/allPosts", async function (req, res) {
+    const userId = req.user.id;
+    //Goes to the dogHandler object and grabs all the dogs for the user
+    //This is used to keep the routes page clean
+    const user = await userPosts.getAllPosts(req.params.userID);
+
+    //Then sending the userProfile object and the userDogsArray to handlebars for processing
+    res.render("allPosts", {
+      userProfile: user.userProfile,
+      allPostsArray: user.allPostsArray,
+      userId,
+    });
+  });
+
   //Displays the user information and the posts which they have made to the site
   app.get("/user/posts/:userID", async function (req, res) {
     const userId = req.user.id;
