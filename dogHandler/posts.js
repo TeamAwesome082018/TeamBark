@@ -57,7 +57,7 @@ module.exports = {
         //     user.userProfile.isCurrentUser = true;
         // };
         console.log(user)
-        await db.Posts.findAll({ where: { post_type: "Dog Post", post_type: "Meet Up" } }).then(function (posts) {
+        await db.Posts.findAll({ where: { post_type: "Dog Post" } }).then(function (posts) {
             posts.forEach(function (post) {
                 let feed = {};
                 feed.name = post.text;
