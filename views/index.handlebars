@@ -12,9 +12,6 @@ body {
   background-color: rgb(199, 75, 90);
 
 }
-  @font-face {
-    font-family: Hiruko; src: url(HirukoBlackAlternate.ttf);
-  }
 
   button {
     border-radius: 80%;
@@ -47,43 +44,7 @@ h2 {
         <h2>Join The Rescue Squad Today</h2>
         <br>
         <br>
-        <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#signUp">Create
-          Account</button>
-        <div class="modal fade" id="signUp">
-          <div class="modal-dialogue">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1> Sign-Up </h1>
-              </div>
-              <div class="modal-body">
-                <form id="signup" name="signup" method="post" action="/signup">
-                  <label for="email">Email Address</label>
-                  <input class="text" name="email" type="email" />
-                  <br>
-                  <label for="firstname">Firstname</label>
-                  <input name="firstname" type="text" />
-                  <br>
-                  <label for="lastname">Lastname</label>
-                  <input name="lastname" type="text" />
-                  <br>
-                  <label for="zip">Zip Code</label>
-                  <input name="zip" type="text" />
-                  <br>
-                  <label for="phone_number">Phone Number</label>
-                  <input name="phone_number" type="text" />
-                  <br>
-                  <label for="password">Password</label>
-                  <input name="password" type="password" />
-                  <br>
-                  <input class="btn" type="submit" value="Sign Up" />
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="close btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <a href="/signup"><button type="button" class="btn btn-primary btn-lg btn-block">Sign Up</button></a>
 
         <a href="/signin"><button type="button" class="btn btn-secondary btn-lg btn-block">Sign In</button></a>
 
