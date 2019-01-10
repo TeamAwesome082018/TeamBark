@@ -42,6 +42,31 @@ module.exports = {
         });
         return user;
     },
+    getAllPosts: async function (userID, loggedInID) {
+        let user = {};
+        user.feed = {};
+        user.userProfile = {};
+        user.allPostsArray = [],
+            user.userProfile.id = userID;
+
+        await db.User.findOne({ where: { UserId: userID } }).then(function (userInfo) {
+            user.userProfile.userName = `${userInfo.firstname} ${userInfo.lastname}`
+        });
+        if (+userID === loggedInID) {
+            user.userProfile.isCurrentUser = true;
+        };
+        console.log(user)
+        await db.Posts.findAll({ where: { post_type: `Dog Post, Meet Up`, } }).then(function (posts) {
+            posts.forEach(function (post) {
+                let feed = {};
+                feed.name = post.text;
+                feed.tyep = post.post_type;
+                user.allPostsArray.push(feed);
+            });
+            return user.allPostsArray;
+        });
+        return user;
+    },
     updatePost: async function (updatedPost) {
         let userID = "";
         //When querying the post database pull the userID

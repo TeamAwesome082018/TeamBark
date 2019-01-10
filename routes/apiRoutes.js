@@ -35,7 +35,7 @@ module.exports = function (app) {
     //Goes to the userDogs object to create the new dog to make the routes cleaner
     const userID = await userPosts.createPost(req.body, req.user.id)
 
-    //This then takes them to the page which displays all of their dogs
+    //This then takes them to the page which displays all of their posts
     res.redirect(`/user/posts/${userID}`)
   });
 
@@ -51,7 +51,9 @@ module.exports = function (app) {
   app.delete("/api/deletepost", async function (req, res) {
     //Goes to the post handler and deletes the post from the database as well as the cloudinary
     const userID = await userPosts.deletePost(req.body.id);
+    const userId = req.user.id;
 
+    res.redirect(`/user/posts/${userId}`);
     res.end(JSON.stringify(userID));
   });
   //Create a new dog

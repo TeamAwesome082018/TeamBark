@@ -35,10 +35,14 @@ module.exports = function (app) {
   });
 
   app.get("/posts", function (req, res) {
-    res.render("createPosts", { message: req.flash("error") });
+    const userId = req.user.id;
+
+    res.render("createPosts", { message: req.flash("error"), userId });
   });
 
   app.get("/post/:postId", function (req, res) {
+    const userId = req.user.id;
+
     db.Posts.findOne({ where: { id: req.params.postId } }).then(function (post) {
       if (typeof req.user === "undefined") {
         post.isCurrentUser = false;
@@ -46,13 +50,13 @@ module.exports = function (app) {
         post.isCurrentUser = true;
       };
 
-      res.render("updatePost", { post });
+      res.render("updatePost", { post, userId });
     });
   });
 
   //Displays the user information and the posts which they have made to the site
   app.get("/user/posts/:userID", async function (req, res) {
-
+    const userId = req.user.id;
     //Goes to the dogHandler object and grabs all the dogs for the user
     //This is used to keep the routes page clean
     const user = await userPosts.getUserPosts(req.params.userID);
@@ -60,7 +64,8 @@ module.exports = function (app) {
     //Then sending the userProfile object and the userDogsArray to handlebars for processing
     res.render("viewposts", {
       userProfile: user.userProfile,
-      userPostsArray: user.userPostsArray
+      userPostsArray: user.userPostsArray,
+      userId,
     });
   });
 
@@ -77,6 +82,8 @@ module.exports = function (app) {
     //Goes to the dogHandler object and grabs all the dogs for the user
     //This is used to keep the routes page clean
     let user = {};
+    const userId = req.user.id;
+
     if (typeof req.user === "undefined") {
       user = await userDogs.getUserDogs(req.params.userID);
     } else {
@@ -86,7 +93,8 @@ module.exports = function (app) {
     //Then sending the userProfile object and the userDogsArray to handlebars for processing
     res.render("userProfile", {
       userProfile: user.userProfile,
-      userDogsArray: user.userDogsArray
+      userDogsArray: user.userDogsArray,
+      userId
     });
   });
 
