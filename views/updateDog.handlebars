@@ -1,24 +1,38 @@
+<style>
+    h3 {
+        color: rgb(2, 2, 117);
+        align-content: center;
+        font-size: 7em;
+        font-family: 'Fredoka One', cursive;
+        text-shadow: 5px 2px rgb(149, 181, 240);
+    }
+}
+</style>
+
 {{!-- Update Picture, Update Name, Report dog as lost --}}
 <div class="container">
     <div class="row">
-        <div class="card mt-4 float-left">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-6">
-                        <p>
-                            <strong>Dog:</strong> {{dog.dog_name}}
-                            <br>
-                            {{cloudinaryIMG dog.photo_url width=150 height=150}}
-                        </p>
-                    </div>
-                    {{#if dog.isCurrentUser}}
+        <div class="col-2"></div>
+        <div class="col-8">
+            <h3>Edit Doggo!</h3>
+            <div class="card mt-4t">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <p>
+                                <strong>Dog:</strong> {{dog.dog_name}}
+                                <br>
+                                {{cloudinaryIMG dog.photo_url width=150 height=150}}
+                            </p>
+                        </div>
+                        {{#if dog.isCurrentUser}}
                         <div class="col-6">
                             <p class="mt-5">
                                 <form id="updateDog" method="post" action="/api/updatedog" enctype="multipart/form-data">
                                     {{!-- Below must be hidden as it passes in what dog we are updating and we don't want
-                                users to change it --}}
+                                    users to change it --}}
                                     <input name="id" type="hidden" value="{{dog.id}}">
-                                    <label for="dog_name">Dog Name</label>
+                                    <label for="dog_name">Update Name</label>
                                     <input name="dog_name" class="dogName" type="text" />
                                     <br><br>
                                     Select an Image
@@ -33,10 +47,12 @@
                                 <a href="/">← Back To Home</a>
                             </p>
                         </div>
-                    {{/if}}
+                        {{/if}}
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="col-2"></div>
     </div>
 </div>
 
